@@ -1,6 +1,6 @@
-# elkulo
+# README
 
-# h1
+説明
 
 ## h2
 
@@ -14,13 +14,13 @@
 
 ## リスト
 
-- リスト1
-    - ネスト リスト1_1
-        - ネスト リスト1_1_1
-        - ネスト リスト1_1_2
-    - ネスト リスト1_2
-- リスト2
-- リスト3
+- リスト 1
+  - ネスト リスト 1_1
+    - ネスト リスト 1_1_1
+    - ネスト リスト 1_1_2
+  - ネスト リスト 1_2
+- リスト 2
+- リスト 3
 
 ## 引用
 
@@ -30,17 +30,17 @@
 
 **強調**
 
-*イタリック*
+_イタリック_
 
-***強調イタリック***
+**_強調イタリック_**
 
-[Google先生](https://www.google.co.jp/)
+[Google 先生](https://www.google.co.jp/)
 
-___
+---
 
 ## GitHub Flavored Markdown(GFM)
 
-GitHub Flavored Markdown(GFM)はGitHubの独自仕様を加えたMarkdown記法。
+GitHub Flavored Markdown(GFM)は GitHub の独自仕様を加えた Markdown 記法。
 
 https://www.google.co.jp/
 

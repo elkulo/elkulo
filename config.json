@@ -1,7 +1,7 @@
 {
   "useSideMenu": false,
   "lineBreaks": "gfm",
-  "additionalFooterText": "All content and images &copy; by elkulo. ",
+  "additionalFooterText": "All content and images &copy; by elkulo. <br>",
   "anchorCharacter": "#",
-  "title": "elkulo.me | README"
+  "title": "README"
 }
