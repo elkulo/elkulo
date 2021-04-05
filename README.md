@@ -1,4 +1,6 @@
-# Hello world!
+# elkulo
+
+# h1
 
 ## h2
 
@@ -43,11 +45,3 @@ GitHub Flavored Markdown(GFM)はGitHubの独自仕様を加えたMarkdown記法�
 https://www.google.co.jp/
 
 ~~取り消し線~~
-
----
-
-**このページはMDwikiを利用してGithubにある個人ブランチのREADME.mdをHTMLにレンダリングしています。**
-
-See http://www.mdwiki.info/ for more documentation and details.
-
-https://github.com/Dynalon/mdwiki/releases
