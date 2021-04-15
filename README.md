@@ -17,16 +17,16 @@ HTML5, Sass(SCSS), JavaScript, React, Vue, PHP
 
 ### 個人制作
 
-**Portfolio**  
+**Portfolio(準備中)**  
 https://elkulo.github.io/  
 
-**API Server**  
+**API Server(準備中)**  
 https://api.elkulo.me/  
 
-**Mailer**  
+**Mailer(準備中)**  
 https://mailer.elkulo.me/  
 
-**Feeder**  
+**Feeder(準備中)**  
 https://feeder.elkulo.me/  
 
 ---
