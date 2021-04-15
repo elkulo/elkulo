@@ -1,47 +1,60 @@
 # README
 
-説明
+el.kulo(A.Sudo)と申します。  
 
-## h2
+東京の某企業でフロント・エンド・エンジニアを務めています。デザイナーでもあります。
 
-### h3
+WordPressをベースにした制作を得意とし、テーマやプラグインを作っています。
+デザインからシステム構築まで一貫したサイト制作をします。また、DTPデザインも行います。
 
-#### h4
+もともとはデザイン系の学校出身のため、デザインの方がメインです。写真を駆使したPhotoshopでのコラージュを得意とします。
 
-##### h5
+### 主要コード
 
-###### h6
-
-## リスト
-
-- リスト 1
-  - ネスト リスト 1_1
-    - ネスト リスト 1_1_1
-    - ネスト リスト 1_1_2
-  - ネスト リスト 1_2
-- リスト 2
-- リスト 3
-
-## 引用
-
-> 何も当時さぞその乱暴観というののところがさましょだ。大分今に矛盾院もまあそんな呈たんくらいが亡びるていけんのも自白いっますますて、全くともならですですたない。がたにするだ気はいくら事実がひとまずたである。けっして岡田さんを講演当人再び影響にいらしい嚢どんな引込あなたか経過のとしてお使用ますなけれたんて、そうした十月は私か学校他人を尽さて、岡田さんのので道の私に近頃ご戦争と潜り込むてあなた党派がお話に見下しようともしご真似に違いでたて、とうていいくら話を怒っでしょからならましのを云わありん。しかしまたごがたが続いのはたった高等としないから、そうした裏面をは企てでばという世の中が与えてならでです。
+HTML5, Sass(SCSS), JavaScript, React, Vue, PHP
 
 ---
 
-**強調**
+### 個人制作
 
-_イタリック_
+**Portfolio**  
+https://elkulo.github.io/  
 
-**_強調イタリック_**
+**API Server**  
+https://api.elkulo.me/  
 
-[Google 先生](https://www.google.co.jp/)
+**Mailer**  
+https://mailer.elkulo.me/  
+
+**Feeder**  
+https://feeder.elkulo.me/  
 
 ---
 
-## GitHub Flavored Markdown(GFM)
+### 開発環境
 
-GitHub Flavored Markdown(GFM)は GitHub の独自仕様を加えた Markdown 記法。
+MacBook Pro (US Keyboard)  
+iPad mini + Apple Pencil
 
-https://www.google.co.jp/
+**■ デザイン**  
+Adobe illustrator / Adobe Photoshop / Adobe XD
 
-~~取り消し線~~
+**■ コードエディッター**  
+Panic Nova / VSCode
+
+**■ 動画編集**  
+Apple Final Cut Pro / Apple GarageBand
+
+**■ FTP(S)**  
+Panic Transmit
+
+**■ SSH**  
+Hyper
+
+---
+
+### Github
+
+個人制作のコードはGithubで公開しています。評価するには私の書いたコードを見てください。
+
+https://github.com/elkulo
