@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <title>Me | el.kulo</title>
     <meta name="robots" content="noindex,nofollow" />
+    <meta
+      name="description"
+      itemprop="description"
+      content="FRONT END DEVELOPER & DESIGNER"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Noto+Serif+JP:wght@500&display=swap"
@@ -17,80 +22,169 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- github-markdown-css:https://cdnjs.com/libraries/github-markdown-css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+      integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       html,
       body {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         font-family: "Lato";
-        background: #976981;
         color: #626e75;
+        background: #0d1117;
       }
       h1 {
         font-family: "Noto Serif JP";
         color: #424f57;
       }
+      a {
+        text-underline-offset: 2px;
+        text-decoration-thickness: 1px;
+      }
+      a:hover {
+        text-decoration: none;
+      }
       img {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
       }
       .copyright {
+        position: absolute;
         text-align: center;
         font-family: "Noto Serif JP";
         color: #fff;
+        left: 0;
+        bottom: 0;
+        width: 100%;
       }
       body > #page {
-        height: 100%;
+        position: relative;
+        background: url("assets/overlay.png"), url("assets/bg.jpg");
+        background-size: 150px, cover;
+        min-height: 600px;
+        height: 100vh;
+        filter: blur(0px);
+        transition: filter 180ms ease;
       }
-      main {
-        max-width: 420px;
+      .modal-open > #page {
+        filter: blur(5px);
       }
       iframe {
         width: 100%;
         height: 100%;
       }
+      .markdown-body {
+        color: #c9d1d9;
+        font-size: 0.875rem;
+      }
+      .markdown-body h1 {
+        font-family: "Noto Serif JP";
+        border-color: #21262d;
+      }
+      .markdown-body h2 {
+        border-color: #21262d;
+      }
+      .markdown-body a {
+        color: #58a6ff;
+      }
+      .markdown-body a:hover,
+      .markdown-body a:focus {
+        color: #58a6ff;
+      }
+      .markdown-body blockquote {
+        border-color: #3b434b;
+        color: #88919b;
+      }
+      .markdown-body hr:not([size]) {
+        border-color: #30363d;
+        height: 0.25em;
+      }
+      .fade-scale .modal-dialog {
+        transform: scale(0.98);
+        opacity: 0;
+        transition: transform 180ms ease, opacity 180ms ease;
+      }
+      .fade-scale.show .modal-dialog {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .svg-icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+      }
+      .icon-mail-envelope {
+        vertical-align: middle;
+        font-size: 2em;
+        padding-bottom: 0.075em;
+        margin-right: 0.125em;
+      }
     </style>
   </head>
   <body>
-    <div id="page" class="d-sm-flex align-items-center justify-content-center">
-      <main class="container py-5">
-        <article class="card py-4">
+    <div id="page" class="d-flex align-items-center justify-content-center">
+      <main class="container py-5 mb-5" style="max-width: 400px">
+        <article class="card py-2">
           <img
-            src="https://pallet-net.co.jp/wp-content/themes/pallet-corporation/assets/headers/preset-1.jpg"
-            class="rounded-circle mx-auto my-2"
+            src="/assets/avatar.jpg"
+            class="rounded-circle mx-auto mt-3"
             alt="el.kulo"
           />
           <div class="card-body text-center">
             <h1 class="card-title mb-2 h3">el.kulo</h1>
             <p class="card-text">FRONT END DEVELOPER & DESIGNER.</p>
-            <p>
-              <a href="#" class="btn btn-outline-dark mt-2">CONTACT</a>
-            </p>
+            <div class="mt-4 mb-3">
+              <a
+                href="https://forms.gle/Ra9gNBircfwg2umm9"
+                class="btn btn-outline-dark px-5"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="CONTACT"
+              >
+                <svg class="svg-icon icon-mail-envelope">
+                  <use xlink:href="#icon-mail-envelope"></use>
+                </svg>
+                CONTACT
+              </a>
+            </div>
             <a
-              href="#"
+              href="javascript:void(0)"
               class="link-secondary"
               data-bs-toggle="modal"
-              data-bs-target="#MyModal"
-              style="font-size: 0.875em; text-decoration: none"
+              data-bs-target="#__modal"
+              style="font-size: 0.875em"
+              title="README.md"
             >
               README.md
             </a>
           </div>
         </article>
       </main>
+      <div class="py-3 copyright">&copy; Me | el.kulo</div>
     </div>
-    <div class="fixed-bottom py-3 copyright">&copy; Me | el.kulo</div>
     <div
-      class="modal fade"
-      id="MyModal"
+      class="modal fade-scale"
+      id="__modal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      style="background: rgba(13, 17, 23, 0.8)"
     >
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <div class="modal-body p-0">
-            <div class="position-absolute top-0 end-0 m-3">
+      <div class="modal-dialog modal-lg">
+        <div
+          class="modal-content"
+          style="background: #0d1117; border: solid 1px #21262d"
+        >
+          <div class="modal-body">
+            <div class="position-absolute top-0 end-0 m-4">
               <button
                 type="button"
                 class="btn-close btn-close-white"
@@ -98,17 +192,24 @@
                 aria-label="Close"
               />
             </div>
-            <iframe
-              id="inlineFrameExample"
-              title="Inline Frame Example"
-              frameborder="0"
-              src="/readme.html"
-            >
-            </iframe>
+            <div class="container my-3">
+              <div class="row">
+                <div class="col">
+                  <div id="markdown" class="markdown-body"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- jQuery:https://cdnjs.com/libraries/jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <!-- twitter-bootstrap:https://cdnjs.com/libraries/twitter-bootstrap -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"
@@ -116,5 +217,47 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <!-- marked:https://cdnjs.com/libraries/marked -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"
+      integrity="sha512-t1jq1b5U4hgz4lQoeyRD9QiVu99KxjyA939fnND+R+gLOHmuT5F9YFHJI1Nse1B1QG6/U11SPAc8fshYshb6MA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $(function () {
+        var $markdown = $("#markdown");
+        $.ajax({
+          type: "GET",
+          url: "./README.md",
+          dataType: "text",
+          beforeSend: function (xhr) {
+            xhr.overrideMimeType("text/html;charset=UTF-8");
+          },
+          success: function (data) {
+            $markdown.html(marked(data));
+            $markdown.find("a[href^=http]").attr("target", "_blank");
+          },
+          error: function () {
+            $markdown.text("This content failed to load.");
+          },
+        });
+      });
+    </script>
+    <svg
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <defs>
+        <symbol id="icon-mail-envelope" viewBox="0 0 32 32">
+          <path
+            d="M5.315 9.274l11.185 9.726 11.187-9.728c0.194 0.184 0.313 0.445 0.313 0.735v11.986c0 0.557-0.449 1.007-1.003 1.007h-20.994c-0.564 0-1.003-0.451-1.003-1.007v-11.986c0-0.289 0.121-0.549 0.315-0.733zM6.004 8c-1.107 0-2.004 0.895-2.004 1.994v12.012c0 1.101 0.89 1.994 2.004 1.994h20.993c1.107 0 2.004-0.895 2.004-1.994v-12.012c0-1.101-0.89-1.994-2.004-1.994h-20.993zM16.5 17.7l-10-8.7h20l-10 8.7z"
+          ></path>
+        </symbol>
+      </defs>
+    </svg>
   </body>
 </html>
