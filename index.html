@@ -10,17 +10,21 @@
       href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:700&display=swap"
       type="text/css"
     />
+    <!-- github-markdown-css:https://cdnjs.com/libraries/github-markdown-css -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
       integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+    <!-- twitter-bootstrap:https://cdnjs.com/libraries/twitter-bootstrap -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css"
-      integrity="sha512-N415hCJJdJx+1UBfULt+i+ihvOn42V/kOjOpp1UTh4CZ70Hx5bDlKryWaqEKfY/8EYOu/C2MuyaluJryK1Lb5Q=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"
+      integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <style>
       body {
@@ -51,36 +55,42 @@
       }
       .markdown-body hr:not([size]) {
         border-color: #30363d;
-        height: .25em;
+        height: 0.25em;
       }
     </style>
   </head>
   <body>
-    <main class="container my-3 my-sm-4 my-lg-5" style="max-width:720px;">
+    <main class="container my-3 my-sm-4 my-lg-5" style="max-width: 720px">
       <article class="row">
         <div class="col">
           <noscript>
-            This website requires Javascript to be enabled. Please turn on 
+            This website requires Javascript to be enabled. Please turn on
             Javascript and reload the page.
           </noscript>
           <div id="markdown" class="markdown-body"></div>
         </div>
       </article>
     </main>
+    <!-- jQuery:https://cdnjs.com/libraries/jquery -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     ></script>
+    <!-- twitter-bootstrap:https://cdnjs.com/libraries/twitter-bootstrap -->
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.min.js"
-      integrity="sha512-mp3VeMpuFKbgxm/XMUU4QQUcJX4AZfV5esgX72JQr7H7zWusV6lLP1S78wZnX2z9dwvywil1VHkHZAqfGOW7Nw=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"
+      integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     ></script>
+    <!-- marked:https://cdnjs.com/libraries/marked -->
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.1/marked.min.js"
-      integrity="sha512-pjhyz9DR7D4w90mc3iiAjhSRSmVrF3egxvfbOO6948qG0GACeOVpnP+xWEm7ihN5m1rg8tEHKRBhRrYEGhIR6Q=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"
+      integrity="sha512-t1jq1b5U4hgz4lQoeyRD9QiVu99KxjyA939fnND+R+gLOHmuT5F9YFHJI1Nse1B1QG6/U11SPAc8fshYshb6MA=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     ></script>
     <script>
       $(function () {
@@ -89,6 +99,9 @@
           type: "GET",
           url: "./README.md",
           dataType: "text",
+          beforeSend: function (xhr) {
+            xhr.overrideMimeType("text/html;charset=UTF-8");
+          },
           success: function (data) {
             $markdown.html(marked(data));
             $markdown.find("a[href^=http]").attr("target", "_blank");
