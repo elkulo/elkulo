@@ -1,4 +1,4 @@
-# README
+# Me.
 
 el.kulo(A.Sudo)と申します。  
 
@@ -9,9 +9,10 @@ WordPressをベースにした制作を得意とし、テーマやプラグイ�
 
 もともとはデザイン系の学校出身のため、デザインの方がメインです。写真を駆使したPhotoshopでのコラージュを得意とします。
 
-### 主要コード
+## 主要言語&ライブラリ
 
-HTML5, Sass(SCSS), JavaScript, React, Vue, PHP
+HTML5, Sass(SCSS), JavaScript, PHP,  
+React, Gatsby, Vue, WordPress, Laravel, FuelPHP, 他
 
 ---
 
