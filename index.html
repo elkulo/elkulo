@@ -51,8 +51,9 @@
         text-decoration: none;
       }
       img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
+        vertical-align: bottom;
       }
       .copyright {
         position: absolute;
@@ -65,7 +66,7 @@
       }
       body > #page {
         position: relative;
-        background: url("images/overlay.png"), url("images/bg.jpg");
+        background: url("images/overlay.png"), url("images/bg.jpg") 50% 50%;
         background-size: 100px, cover;
         min-height: 600px;
         height: 100%;
@@ -131,7 +132,7 @@
   </head>
   <body>
     <div id="page" class="d-flex align-items-center justify-content-center">
-      <main class="container py-5 mb-5" style="max-width: 400px">
+      <main class="container py-5 mb-5" style="max-width: 360px">
         <article class="card py-2">
           <img
             src="/images/avatar.jpg"
@@ -155,15 +156,15 @@
                 CONTACT
               </a>
             </div>
-            <a
+            <button
               href="javascript:void(0)"
-              class="link-secondary bg-transparent"
+              class="btn btn-sm btn-link link-secondary"
               data-bs-toggle="modal"
               data-bs-target="#__modal"
               title="README.md"
             >
-              <small>README.md</small>
-            </a>
+              README.md
+            </button>
           </div>
         </article>
       </main>
@@ -182,8 +183,8 @@
           style="background: #0d1117; border: solid 1px #21262d"
         >
           <div
-            class="position-sticky top-0 start-0 end-0 mt-4 mx-4 text-end"
-            style="z-index: 1"
+            class="position-sticky start-0 end-0 mx-4 text-end"
+            style="margin-top: 2em; top: 1em; z-index: 1"
           >
             <button
               type="button"
@@ -192,7 +193,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <section class="modal-body pt-0 pb-5" style="margin-top: -1.5em">
+          <section class="modal-body pt-0 pb-5" style="margin-top: -2em">
             <div class="container">
               <div class="row">
                 <div class="col">
@@ -243,9 +244,6 @@
             $markdown.text("This content failed to load.");
           },
         });
-
-        // 100vh fix
-        //$("#page").height($("body").height());
       });
     </script>
     <svg
