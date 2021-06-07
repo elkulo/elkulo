@@ -55,14 +55,16 @@
         height: 120px;
         vertical-align: bottom;
       }
-      .copyright {
+      .site-footer {
         position: absolute;
-        text-align: center;
-        font-family: "Noto Serif JP";
-        color: #fff;
         left: 0;
         bottom: 0;
         width: 100%;
+        text-align: center;
+      }
+      .copyright {
+        font-family: "Noto Serif JP";
+        color: #fff;
       }
       body > #page {
         position: relative;
@@ -133,10 +135,10 @@
   <body>
     <div id="page" class="d-flex align-items-center justify-content-center">
       <main class="container py-5 mb-5" style="max-width: 360px">
-        <article class="card py-2">
+        <article class="card py-1">
           <img
             src="/images/avatar.jpg"
-            class="rounded-circle mx-auto mt-3"
+            class="rounded-circle mx-auto mt-4"
             alt="el.kulo"
           />
           <div class="card-body text-center">
@@ -159,15 +161,27 @@
             <button
               class="btn btn-sm btn-link link-secondary"
               data-bs-toggle="modal"
-              data-bs-target="#__modal"
-              title="README.md"
+              data-bs-target="#__modal--0"
+              title="README"
             >
               README.md
             </button>
           </div>
         </article>
       </main>
-      <div class="py-3 copyright">&copy; Me | el.kulo</div>
+      <footer class="position-absolute bottom-0 start-0 w-100 text-center py-3">
+        <div class="mb-3">
+          <button
+            class="btn btn-sm btn-link link-light"
+            data-bs-toggle="modal"
+            data-bs-target="#__modal--1"
+            title="Privacy Policy"
+          >
+            Privacy Policy
+          </button>
+        </div>
+        <div class="copyright">&copy; Me | el.kulo</div>
+      </footer>
     </div>
     <template id="modal-template">
       <div
@@ -197,7 +211,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col">
-                    <div id="markdown" class="markdown-body"></div>
+                    <div class="markdown-body"></div>
                   </div>
                 </div>
               </div>
@@ -229,23 +243,29 @@
     ></script>
     <script>
       $(function () {
-        var $modal_template = $("#modal-template").contents().clone(true);
-        var $markdown = $modal_template.find("#markdown");
-        $("body").prepend($modal_template);
-        $.ajax({
-          type: "GET",
-          url: "./README.md",
-          dataType: "text",
-          beforeSend: function (xhr) {
-            xhr.overrideMimeType("text/html;charset=UTF-8");
-          },
-          success: function (data) {
-            $markdown.html(marked(data));
-            $markdown.find("a[href^=http]").attr("target", "_blank");
-          },
-          error: function () {
-            $markdown.html("<h2>This content failed to load.</h2>");
-          },
+        new Array("./README.md", "./privacy-policy.md").forEach(function (
+          file,
+          index
+        ) {
+          var $modal = $("#modal-template").contents().clone(true);
+          $modal.attr("id", "__modal--" + index);
+          var $markdown_body = $modal.find(".markdown-body");
+          $("body").append($modal);
+          $.ajax({
+            type: "GET",
+            url: file,
+            dataType: "text",
+            beforeSend: function (xhr) {
+              xhr.overrideMimeType("text/html;charset=UTF-8");
+            },
+            success: function (data) {
+              $markdown_body.html(marked(data));
+              $markdown_body.find("a[href^=http]").attr("target", "_blank");
+            },
+            error: function () {
+              $markdown_body.html("<h2>This content failed to load.</h2>");
+            },
+          });
         });
       });
     </script>
