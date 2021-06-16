@@ -60,7 +60,6 @@
         color: #fff;
       }
       body > #page {
-        position: relative;
         background: url("images/overlay.png"), url("images/bg.jpg") 50% 50%;
         background-size: 100px, cover;
         min-height: 600px;
@@ -69,36 +68,17 @@
         transition: filter 180ms ease;
       }
       body:is(.modal-open) > #page {
-        filter: blur(10px);
+        filter: blur(10px) contrast(110%);
       }
       iframe {
         width: 100%;
         height: 100%;
       }
       .markdown-body {
-        color: #c9d1d9;
+        color: #333;
       }
-      .markdown-body h1 {
-        font-family: "Noto Serif JP";
-        border-color: #21262d;
-      }
-      .markdown-body h2 {
-        border-color: #21262d;
-      }
-      .markdown-body a {
-        color: #58a6ff;
-      }
-      .markdown-body a:hover,
-      .markdown-body a:focus {
-        color: #58a6ff;
-      }
-      .markdown-body blockquote {
-        border-color: #3b434b;
-        color: #88919b;
-      }
-      .markdown-body hr:not([size]) {
-        border-color: #30363d;
-        height: 0.25em;
+      .modal-backdrop {
+        background: rgba(255, 255, 255, 0.5);
       }
       .fade-scale .modal-dialog {
         transform: scale(0.98);
@@ -123,6 +103,14 @@
         padding-bottom: 0.075em;
         margin-right: 0.125em;
       }
+      .btn[data-bs-toggle="modal"] {
+        text-decoration: none;
+      }
+      .btn[data-bs-toggle="modal"]:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-thickness: 1px;
+      }
     </style>
   </head>
   <body>
@@ -140,7 +128,7 @@
             <div class="mt-4 mb-3">
               <a
                 href="https://forms.gle/Ra9gNBircfwg2umm9"
-                class="btn btn-outline-dark px-5"
+                class="btn btn-outline-dark shadow-none px-5"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="CONTACT"
@@ -152,7 +140,7 @@
               </a>
             </div>
             <button
-              class="btn btn-sm btn-link link-secondary"
+              class="btn btn-sm btn-link link-secondary shadow-none"
               data-bs-toggle="modal"
               data-bs-target="#__modal--0"
               title="README"
@@ -165,7 +153,7 @@
       <footer class="position-absolute bottom-0 start-0 w-100 text-center py-3">
         <div class="mb-3">
           <button
-            class="btn btn-sm btn-link link-light"
+            class="btn btn-sm btn-link link-light shadow-none"
             data-bs-toggle="modal"
             data-bs-target="#__modal--1"
             title="Privacy Policy"
@@ -182,20 +170,16 @@
         id="__modal--xxx"
         tabindex="-1"
         aria-hidden="true"
-        style="background: rgba(13, 17, 23, 0.6)"
       >
         <div class="modal-dialog modal-lg">
-          <div
-            class="modal-content position-relative"
-            style="background: #0d1117; border: solid 1px #21262d"
-          >
+          <div class="modal-content position-relative">
             <div
               class="position-sticky start-0 end-0 mx-4 text-end"
               style="margin-top: 2em; top: 1em; z-index: 1"
             >
               <button
                 type="button"
-                class="btn-close btn-close-white"
+                class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -251,14 +235,24 @@
             beforeSend: function (xhr) {
               xhr.overrideMimeType("text/html;charset=UTF-8");
             },
-            success: function (data) {
+          })
+            .then(function (data) {
               $markdown_body.html(marked(data));
               $markdown_body.find("a[href^=http]").attr("target", "_blank");
-            },
-            error: function () {
-              $markdown_body.html("<h2>This content failed to load.</h2>");
-            },
-          });
+            })
+            .catch(function (error) {
+              if (error.status) {
+                $markdown_body.html(
+                  "<h2>404 Not Found.</h2><p>This content failed to load.</p>"
+                );
+              }
+            })
+            .then(function () {
+              if (file === "./privacy-policy.md") {
+                $modal.find(".modal-dialog").removeClass("modal-lg");
+                $modal.find(".modal-dialog").addClass("modal-md");
+              }
+            });
         });
       });
     </script>
