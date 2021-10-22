@@ -4,32 +4,13 @@
     <meta charset="UTF-8" />
     <title>Me | el.kulo</title>
     <meta name="robots" content="noindex,nofollow" />
-    <meta
-      name="description"
-      itemprop="description"
-      content="FRONT END DEVELOPER & DESIGNER"
-    />
+    <meta name="description" itemprop="description" content="FRONT END DEVELOPER & DESIGNER" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Noto+Serif+JP:wght@500&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Noto+Serif+JP:wght@500&display=swap" />
     <!-- NOTE: https://cdnjs.com/libraries/twitter-bootstrap -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"
-      integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- NOTE: https://cdnjs.com/libraries/github-markdown-css -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
-      integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown-light.min.css" integrity="sha512-2ZxkJRe/dlKUknBZJNP93bh08JvvuvL+fR6I3IqZ4tnAvNQ0D56+LVg+DvE/S/Ir4J/6lxBu/Xye1z243BEa1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
       html,
       body {
@@ -43,24 +24,12 @@
         font-family: "Noto Serif JP";
         color: #424f57;
       }
-      a {
-        text-underline-offset: 2px;
-        text-decoration-thickness: 1px;
-      }
-      a:hover {
-        text-decoration: none;
-      }
-      img {
-        width: 120px;
-        height: 120px;
-        vertical-align: bottom;
-      }
       .copyright {
         font-family: "Noto Serif JP";
         color: #fff;
       }
       body > #page {
-        background: url("images/overlay.png"), url("images/bg.jpg") 50% 50%;
+        background: url("images/texture.png"), url("images/background.jpg") 50% 50%;
         background-size: 100px, cover;
         min-height: 600px;
         height: 100%;
@@ -69,13 +38,6 @@
       }
       body:is(.modal-open) > #page {
         filter: blur(10px) contrast(110%);
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-      }
-      .markdown-body {
-        color: #333;
       }
       .modal-backdrop {
         background: rgba(255, 255, 255, 0.5);
@@ -118,8 +80,8 @@
       id="page"
       class="d-flex flex-column align-items-center justify-content-center"
     >
-      <main class="container py-1" style="max-width: 360px">
-        <article class="card">
+      <main class="container py-1 mb-5" style="max-width: 560px">
+        <article class="card shadow-sm">
           <img
             src="/images/avatar.jpg"
             class="rounded-circle mx-auto mt-4"
@@ -136,9 +98,7 @@
                 rel="noopener noreferrer"
                 title="CONTACT"
               >
-                <svg class="svg-icon icon-mail-envelope">
-                  <use xlink:href="#icon-mail-envelope"></use>
-                </svg>
+                <svg class="svg-icon icon-mail-envelope"><use xlink:href="#icon-mail-envelope"></use></svg>
                 CONTACT
               </a>
             </div>
@@ -148,22 +108,15 @@
               data-bs-target="#__modal--0"
               title="README"
             >
-              README.md
+              README
             </button>
           </div>
         </article>
       </main>
-      <div class="mb-5">
-        <button
-          class="btn btn-link link-light shadow-none"
-          data-bs-toggle="modal"
-          data-bs-target="#__modal--1"
-          title="Privacy Policy"
-        >
-          Privacy Policy
-        </button>
-      </div>
       <footer class="position-absolute bottom-0 start-0 w-100 text-center py-3">
+        <a href="https://github.com/elkulo" target="_blank" title="https://github.com/elkulo/" class="d-inline-block mb-2 display-6 text-white">
+          <svg class="svg-icon icon-github"><use xlink:href="#icon-github"></use></svg>
+        </a>
         <div class="copyright">&copy; Me | el.kulo</div>
       </footer>
     </div>
@@ -201,29 +154,14 @@
       </div>
     </template>
     <!-- NOTE: https://cdnjs.com/libraries/jquery -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- NOTE: https://cdnjs.com/libraries/twitter-bootstrap -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"
-      integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- NOTE: https://cdnjs.com/libraries/marked -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"
-      integrity="sha512-t1jq1b5U4hgz4lQoeyRD9QiVu99KxjyA939fnND+R+gLOHmuT5F9YFHJI1Nse1B1QG6/U11SPAc8fshYshb6MA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.7/marked.min.js" integrity="sha512-a+W0h6Sho4fGYABZAQg6zdWP/qtyE+gzeVfNB/UApXRLuHKh7bT3TeA/LUOno+pcDjX0Vfzgtz6crFQC3YL9lA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       $(function () {
-        new Array("./README.md", "./PRIVACY.md").forEach(function (
+        ["./README.md"].forEach(function (
           file,
           index
         ) {
@@ -265,6 +203,9 @@
           <path
             d="M5.315 9.274l11.185 9.726 11.187-9.728c0.194 0.184 0.313 0.445 0.313 0.735v11.986c0 0.557-0.449 1.007-1.003 1.007h-20.994c-0.564 0-1.003-0.451-1.003-1.007v-11.986c0-0.289 0.121-0.549 0.315-0.733zM6.004 8c-1.107 0-2.004 0.895-2.004 1.994v12.012c0 1.101 0.89 1.994 2.004 1.994h20.993c1.107 0 2.004-0.895 2.004-1.994v-12.012c0-1.101-0.89-1.994-2.004-1.994h-20.993zM16.5 17.7l-10-8.7h20l-10 8.7z"
           ></path>
+        </symbol>
+        <symbol id="icon-github" viewBox="0 0 32 32">
+          <path d="M16 0.395c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path>
         </symbol>
       </defs>
     </svg>
