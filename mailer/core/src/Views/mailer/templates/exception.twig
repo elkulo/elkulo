@@ -1,0 +1,38 @@
+{##
+ # 例外ページ
+ #
+ # Twigインクルードライブラリ
+ #  {% include '/assets/bootstrap.min.css.twig' %}  Bootstrap Style のインラインCSS
+ #  {% include '/assets/bootstrap.min.js.twig' %}   Bootstrap JavaScript のインラインJavaScript
+ #
+ # Twig定数
+ #  {{SITE_TITLE}}  サイトタイトル
+ #  {{SITE_URL}}    サイトURL
+ #
+ # Twig変数
+ #  {{ExceptionMessage}}  システムが拒否した内容のテキスト
+ #}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{{SITE_TITLE}} - 無効なリクエスト</title>
+    <style>{% include '/assets/bootstrap.min.css.twig' %}</style>
+    <script>{% include '/assets/bootstrap.min.js.twig' %}</script>
+  </head>
+  <body class="bg-light p-3 p-sm-5">
+    <div class="container" style="max-width: 768px">
+      <div class="row shadow-sm bg-white border rounded">
+        <div class="col p-4 px-sm-5">
+          <h1 class="h4">無効なリクエスト</h1>
+          <p class="text-muted" style="font-size:0.875rem">次の理由でリクエストは拒否されました。</p>
+          <div class="px-3 pt-4 pb-2 text-sm-center text-danger border-top border-bottom border-danger" style="font-size:0.875rem">
+            <p>{{ ExceptionMessage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
