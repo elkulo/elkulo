@@ -43,8 +43,8 @@
       <div class="container h-100">
         <div class="row align-items-center h-100">
           <div class="col ms-4 mx-sm-auto text-light fw-bold" style="max-width: 768px">
-            <h1 class="h2 fw-light" style="text-shadow:0 0 2px rgba(0,0,0,0.8)">el.kulo</h1>
-            <p class="m-0" style="text-shadow:0 0 2px rgba(0,0,0,0.8)">Me | el.kulo からのお問い合わせ</p>
+            <h1 class="h2 fw-light" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">el.kulo</h1>
+            <p class="m-0" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">Me | el.kulo からのお問い合わせ</p>
             <p class="mt-2 mb-0"><a href="https://elkulo.me/" class="btn btn-sm btn-light">← 戻る</a></p>
           </div>
         </div>
@@ -162,10 +162,10 @@
           {{ CSRF|raw }}
         </form>
       </div>
-    </div>
 
-    {# NOTE: reCAPTCHAのクレジットをインラインで表示する場合 #}
-    {% include '/utils/google-recaptcha-copyright.twig' %}
+      {# NOTE: reCAPTCHAのクレジットをインラインで表示する場合 #}
+      {% include '/utils/google-recaptcha-copyright.twig' %}
+    </div>
 
   {# NOTE: reCAPTCHAを使用する場合 #}
   {% if reCAPTCHA.key %}
