@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>{{SITE_TITLE}} - Mailer</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Noto+Serif+JP:wght@500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@500&family=Noto+Serif+JP:wght@500&display=swap" />
     <style>{% include '/assets/bootstrap.min.css.twig' %}</style>
     <script>{% include '/assets/bootstrap.min.js.twig' %}</script>
     <style>
@@ -32,7 +32,7 @@
       body {
         font-family: "Lato";
       }
-      h1 {
+      .font-family-heading {
         font-family: "Noto Serif JP";
       }
     </style>
@@ -43,8 +43,8 @@
       <div class="container h-100">
         <div class="row align-items-center h-100">
           <div class="col ms-4 mx-sm-auto text-light fw-bold" style="max-width: 768px">
-            <h1 class="h2 fw-light" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">el.kulo</h1>
-            <p class="m-0" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">Me | el.kulo からのお問い合わせ</p>
+            <h1 class="h2 fw-light font-family-heading" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">el.kulo</h1>
+            <p class="m-0 fw-light font-family-heading" style="text-shadow:0 0 2px rgba(0,0,0,0.5)">Me | el.kulo からのお問い合わせ</p>
             <p class="mt-2 mb-0"><a href="https://elkulo.me/" class="btn btn-sm btn-light">← 戻る</a></p>
           </div>
         </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="container pt-3 pb-5 py-sm-5">
-      <div class="m-auto shadow-sm bg-white border rounded p-4 px-sm-5" style="max-width: 768px">
+      <div class="m-auto shadow-sm bg-white border rounded p-4 p-sm-5" style="max-width: 768px">
         <form id="mailer-form" class="needs-validation" method="post" action="{{ Action.url }}" novalidate>
 
           <div class="mb-3">
@@ -62,8 +62,8 @@
               <label class="form-check-label" for="CustomerSubject1">お問い合わせ（一般の方）</label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" id="CustomerSubject2" class="form-check-input" name="customerTitle" value="仕事のご相談（事業関係者）">
-              <label class="form-check-label" for="CustomerSubject2">仕事のご相談（事業関係者）</label>
+              <input type="radio" id="CustomerSubject2" class="form-check-input" name="customerTitle" value="仕事のご相談（事業関係の方）">
+              <label class="form-check-label" for="CustomerSubject2">仕事のご相談（事業関係の方）</label>
             </div>
           </div>
 
@@ -121,7 +121,7 @@
             </div>
           </div>
 
-          <div class="mb-3 rounded p-3" style="overflow-y: scroll; background: #fff0c0; max-height: 160px; font-size: 0.75rem">
+          <div class="mb-3 rounded p-3" style="overflow-y: scroll; background: #faf7f0; max-height: 160px; font-size: 0.75rem">
             <h3 class="mb-3 h6 fw-bold text-center">個人情報保護方針</h3>
 
             <p>当サイトでは、個人情報の取得・利用その他の個人情報の取扱いに関し、個人情報の保護に関する法律、関連する政省令、ガイドライン等を遵守します。</p>
@@ -154,7 +154,7 @@
             <label for="CustomerConsent" class="form-check-label" aria-describedby="consentHelp">個人情報の取扱について同意します。</label>
           </div>
 
-          <div class="d-grid gap-2 col-10 col-sm-6 mt-3 mx-auto">
+          <div class="d-grid gap-2 col-10 col-sm-6 mt-4 mx-auto">
             <button type="submit" class="btn btn-primary">上記内容を送信する</button>
           </div>
 
