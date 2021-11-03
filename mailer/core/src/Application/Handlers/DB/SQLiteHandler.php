@@ -183,7 +183,7 @@ class SQLiteHandler implements DBHandlerInterface
                     success VARCHAR(50),
                     email VARCHAR(256),
                     subject VARCHAR(78),
-                    body VARCHAR(998),
+                    body VARCHAR(3998),
                     date VARCHAR(50),
                     ip VARCHAR(50),
                     host VARCHAR(50),
@@ -191,6 +191,14 @@ class SQLiteHandler implements DBHandlerInterface
                     registry_datetime DATETIME,
                     created_at INTEGER,
                     updated_at INTEGER
+                )");
+
+                // メタテーブル存在チェック
+                $metaTable = $this->tableName.'meta';
+                $pdo->exec("CREATE TABLE IF NOT EXISTS {$metaTable} (
+                    meta_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    meta_key VARCHAR(50),
+                    meta_value VARCHAR(256)
                 )");
 
                 // 一度閉じる.
@@ -206,25 +214,26 @@ class SQLiteHandler implements DBHandlerInterface
     /**
      * DBに保存をテスト
      *
-     * @param  string $email
      * @return bool
      */
-    final public function test(string $email): bool
+    final public function test(): bool
     {
-        return $this->save(
-            array(
-                'admin' => true,
-                'user' => false
-            ),
-            $email,
-            '[HEALTH CHECK] メールプログラムからの動作検証',
-            '//------------ ヘルスチェックによりメールの送信履歴が正常に保存されることを確認しました。 ------------//',
-            array(
-                '_date' => date('Y/m/d (D) H:i:s', time()),
-                '_ip' => $_SERVER['REMOTE_ADDR'],
-                '_host' => getHostByAddr($_SERVER['REMOTE_ADDR']),
-                '_url' => $this->router->getUrl('health-check'),
-            )
-        );
+        try {
+            if ($this->db) {
+                $this->db->table('mailermeta')->updateOrInsert(
+                    [
+                        'meta_id' => 1,
+                    ],
+                    [
+                        'meta_key' => 'health_check_ok',
+                        'meta_value' => '1'
+                    ]
+                );
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('データベース接続エラー');
+            return false;
+        }
+        return true;
     }
 }
