@@ -126,8 +126,6 @@ class ComposerStaticInit8bf501586ca2c45d82c1c6eda7ba0499
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
-            'Gettext\\Languages\\' => 18,
-            'Gettext\\' => 8,
         ),
         'F' => 
         array (
@@ -384,14 +382,6 @@ class ComposerStaticInit8bf501586ca2c45d82c1c6eda7ba0499
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
-        ),
-        'Gettext\\Languages\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gettext/languages/src',
-        ),
-        'Gettext\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gettext/gettext/src',
         ),
         'Fig\\Http\\Message\\' => 
         array (
@@ -859,40 +849,6 @@ class ComposerStaticInit8bf501586ca2c45d82c1c6eda7ba0499
         'FastRoute\\RouteParser\\Std' => __DIR__ . '/..' . '/nikic/fast-route/src/RouteParser/Std.php',
         'Fig\\Http\\Message\\RequestMethodInterface' => __DIR__ . '/..' . '/fig/http-message-util/src/RequestMethodInterface.php',
         'Fig\\Http\\Message\\StatusCodeInterface' => __DIR__ . '/..' . '/fig/http-message-util/src/StatusCodeInterface.php',
-        'Gettext\\Comments' => __DIR__ . '/..' . '/gettext/gettext/src/Comments.php',
-        'Gettext\\Flags' => __DIR__ . '/..' . '/gettext/gettext/src/Flags.php',
-        'Gettext\\Generator\\Generator' => __DIR__ . '/..' . '/gettext/gettext/src/Generator/Generator.php',
-        'Gettext\\Generator\\GeneratorInterface' => __DIR__ . '/..' . '/gettext/gettext/src/Generator/GeneratorInterface.php',
-        'Gettext\\Generator\\MoGenerator' => __DIR__ . '/..' . '/gettext/gettext/src/Generator/MoGenerator.php',
-        'Gettext\\Generator\\PoGenerator' => __DIR__ . '/..' . '/gettext/gettext/src/Generator/PoGenerator.php',
-        'Gettext\\Headers' => __DIR__ . '/..' . '/gettext/gettext/src/Headers.php',
-        'Gettext\\Languages\\Category' => __DIR__ . '/..' . '/gettext/languages/src/Category.php',
-        'Gettext\\Languages\\CldrData' => __DIR__ . '/..' . '/gettext/languages/src/CldrData.php',
-        'Gettext\\Languages\\Exporter\\Docs' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Docs.php',
-        'Gettext\\Languages\\Exporter\\Exporter' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Exporter.php',
-        'Gettext\\Languages\\Exporter\\Html' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Html.php',
-        'Gettext\\Languages\\Exporter\\Json' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Json.php',
-        'Gettext\\Languages\\Exporter\\Php' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Php.php',
-        'Gettext\\Languages\\Exporter\\Po' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Po.php',
-        'Gettext\\Languages\\Exporter\\Prettyjson' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Prettyjson.php',
-        'Gettext\\Languages\\Exporter\\Ruby' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Ruby.php',
-        'Gettext\\Languages\\Exporter\\Xml' => __DIR__ . '/..' . '/gettext/languages/src/Exporter/Xml.php',
-        'Gettext\\Languages\\FormulaConverter' => __DIR__ . '/..' . '/gettext/languages/src/FormulaConverter.php',
-        'Gettext\\Languages\\Language' => __DIR__ . '/..' . '/gettext/languages/src/Language.php',
-        'Gettext\\Loader\\Loader' => __DIR__ . '/..' . '/gettext/gettext/src/Loader/Loader.php',
-        'Gettext\\Loader\\LoaderInterface' => __DIR__ . '/..' . '/gettext/gettext/src/Loader/LoaderInterface.php',
-        'Gettext\\Loader\\MoLoader' => __DIR__ . '/..' . '/gettext/gettext/src/Loader/MoLoader.php',
-        'Gettext\\Loader\\PoLoader' => __DIR__ . '/..' . '/gettext/gettext/src/Loader/PoLoader.php',
-        'Gettext\\Merge' => __DIR__ . '/..' . '/gettext/gettext/src/Merge.php',
-        'Gettext\\References' => __DIR__ . '/..' . '/gettext/gettext/src/References.php',
-        'Gettext\\Scanner\\CodeScanner' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/CodeScanner.php',
-        'Gettext\\Scanner\\FunctionsHandlersTrait' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/FunctionsHandlersTrait.php',
-        'Gettext\\Scanner\\FunctionsScannerInterface' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/FunctionsScannerInterface.php',
-        'Gettext\\Scanner\\ParsedFunction' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/ParsedFunction.php',
-        'Gettext\\Scanner\\Scanner' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/Scanner.php',
-        'Gettext\\Scanner\\ScannerInterface' => __DIR__ . '/..' . '/gettext/gettext/src/Scanner/ScannerInterface.php',
-        'Gettext\\Translation' => __DIR__ . '/..' . '/gettext/gettext/src/Translation.php',
-        'Gettext\\Translations' => __DIR__ . '/..' . '/gettext/gettext/src/Translations.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
@@ -1245,6 +1201,7 @@ class ComposerStaticInit8bf501586ca2c45d82c1c6eda7ba0499
         'Illuminate\\Support\\HtmlString' => __DIR__ . '/..' . '/illuminate/support/HtmlString.php',
         'Illuminate\\Support\\InteractsWithTime' => __DIR__ . '/..' . '/illuminate/support/InteractsWithTime.php',
         'Illuminate\\Support\\ItemNotFoundException' => __DIR__ . '/..' . '/illuminate/collections/ItemNotFoundException.php',
+        'Illuminate\\Support\\Js' => __DIR__ . '/..' . '/illuminate/support/Js.php',
         'Illuminate\\Support\\LazyCollection' => __DIR__ . '/..' . '/illuminate/collections/LazyCollection.php',
         'Illuminate\\Support\\Manager' => __DIR__ . '/..' . '/illuminate/support/Manager.php',
         'Illuminate\\Support\\MessageBag' => __DIR__ . '/..' . '/illuminate/support/MessageBag.php',

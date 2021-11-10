@@ -1,7 +1,7 @@
 <?php
 /**
- * Mailer | el.kulo v3.0.0 (https://github.com/elkulo/Mailer/)
- * Copyright 2020-2021 A.Sudo
+ * Mailer | el.kulo v3.1.0 (https://github.com/elkulo/Mailer/)
+ * Copyright 2020-2022 A.Sudo
  * Licensed under LGPL-2.1-only (https://github.com/elkulo/Mailer/blob/main/LICENSE)
  */
 declare(strict_types=1);
@@ -10,6 +10,7 @@ namespace App\Application\Handlers\Validate;
 
 use App\Application\Settings\SettingsInterface;
 use App\Application\Router\RouterInterface;
+use Psr\Log\LoggerInterface;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\DNSCheckValidation;
 use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
@@ -19,6 +20,25 @@ use ReCaptcha\ReCaptcha;
 
 class ValidateHandler implements ValidateHandlerInterface
 {
+
+    /**
+     * Google reCAPTCHAの閾値
+     *
+     * @var float
+     */
+    private $threshold = 0.5;
+
+    /**
+     * Google reCaptcha
+     *
+     * @var ReCaptcha
+     */
+    private $recaptcha;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * 設定情報
@@ -49,13 +69,6 @@ class ValidateHandler implements ValidateHandlerInterface
     private $validate;
 
     /**
-     * reCAPTCHAの閾値
-     *
-     * @var float
-     */
-    private $threshold = 0.5;
-
-    /**
      * ルーター
      *
      * @var RouterInterface
@@ -65,12 +78,14 @@ class ValidateHandler implements ValidateHandlerInterface
     /**
      * コンストラクタ
      *
+     * @param  LoggerInterface $logger
      * @param  SettingsInterface $settings
      * @param  RouterInterface $router
      * @return void
      */
-    public function __construct(SettingsInterface $settings, RouterInterface $router)
+    public function __construct(LoggerInterface $logger, SettingsInterface $settings, RouterInterface $router)
     {
+        $this->logger = $logger;
         $this->settings = $settings;
         $this->validateSettings = $settings->get('validate');
         $this->formSettings = $settings->get('form');
@@ -79,6 +94,12 @@ class ValidateHandler implements ValidateHandlerInterface
         // reCAPTCHAの閾値の変更.
         if ($this->validateSettings['RECAPTCHA_THRESHOLD']) {
             $this->threshold = $this->validateSettings['RECAPTCHA_THRESHOLD'];
+        }
+
+        // reCAPTCHAを初期化.
+        if (!empty($this->validateSettings['RECAPTCHA_SECRETKEY'])) {
+            $secretKey = $this->validateSettings['RECAPTCHA_SECRETKEY'];
+            $this->recaptcha = new ReCaptcha($secretKey);
         }
     }
 
@@ -179,8 +200,18 @@ class ValidateHandler implements ValidateHandlerInterface
     public function checkinMultibyteWord(): void
     {
         if (isset($this->formSettings['MULTIBYTE_ATTRIBUTE'])) {
-            Validator::addRule('MultibyteValidator', function ($field, $value) {
-                if (strlen($value) === mb_strlen($value, 'UTF-8')) {
+            Validator::addRule('MultibyteValidator', function ($field, $value, $params, $fields) {
+                try {
+                    if (strlen($value) === mb_strlen($value, 'UTF-8')) {
+                        throw new \Exception('Japanese was not included.');
+                    }
+                } catch (\Exception $e) {
+                    if (! $this->validate->errors($field)) {
+                        $this->logger->error($e->getMessage(), [
+                            'email' => $this->getHiddenEmail($fields[$this->formSettings['EMAIL_ATTRIBUTE']]),
+                            'subject' => $fields[$this->formSettings['SUBJECT_ATTRIBUTE']]
+                        ]);
+                    }
                     return false;
                 }
                 return true;
@@ -199,13 +230,23 @@ class ValidateHandler implements ValidateHandlerInterface
      */
     public function checkinBlockNGWord(): void
     {
-        $ng_words = (array) explode(' ', $this->formSettings['BLOCK_NG_WORD']);
-        if (isset($ng_words[0])) {
-            Validator::addRule('BlockNGValidator', function ($field, $value) use ($ng_words) {
-                foreach ($ng_words as $word) {
-                    if (mb_strpos($value, $word, 0, 'UTF-8') !== false) {
-                        return false;
+        $blockWords = (array) explode(' ', $this->formSettings['BLOCK_NG_WORD']);
+        if (isset($blockWords[0])) {
+            Validator::addRule('BlockNGValidator', function ($field, $value, $params, $fields) use ($blockWords) {
+                try {
+                    foreach ($blockWords as $word) {
+                        if (mb_strpos($value, $word, 0, 'UTF-8') !== false) {
+                            throw new \Exception('Forbidden word was included.');
+                        }
                     }
+                } catch (\Exception $e) {
+                    if (! $this->validate->errors($field)) {
+                        $this->logger->error($e->getMessage(), [
+                            'email' => $this->getHiddenEmail($fields[$this->formSettings['EMAIL_ATTRIBUTE']]),
+                            'subject' => $fields[$this->formSettings['SUBJECT_ATTRIBUTE']]
+                        ]);
+                    }
+                    return false;
                 }
                 return true;
             });
@@ -223,13 +264,23 @@ class ValidateHandler implements ValidateHandlerInterface
      */
     public function checkinBlockDomain(): void
     {
-        $block_domains = $this->formSettings['BLOCK_DOMAINS'];
-        if (isset($block_domains[0])) {
-            Validator::addRule('BlockDomainValidator', function ($field, $value) use ($block_domains) {
-                foreach ($block_domains as $mail) {
-                    if (strpos($value, $mail) !== false) {
-                        return false;
+        $blockDomains = $this->formSettings['BLOCK_DOMAINS'];
+        if (isset($blockDomains[0])) {
+            Validator::addRule('BlockDomainValidator', function ($field, $value, $params, $fields) use ($blockDomains) {
+                try {
+                    foreach ($blockDomains as $mail) {
+                        if (strpos($value, $mail) !== false) {
+                            throw new \Exception('Forbidden domain was included.');
+                        }
                     }
+                } catch (\Exception $e) {
+                    if (! $this->validate->errors($field)) {
+                        $this->logger->error($e->getMessage(), [
+                            'email' => $this->getHiddenEmail($fields[$this->formSettings['EMAIL_ATTRIBUTE']]),
+                            'subject' => $fields[$this->formSettings['SUBJECT_ATTRIBUTE']]
+                        ]);
+                    }
+                    return false;
                 }
                 return true;
             });
@@ -264,14 +315,19 @@ class ValidateHandler implements ValidateHandlerInterface
      */
     public function isCheckReferer(): bool
     {
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            if (strpos($_SERVER['HTTP_REFERER'], $this->settings->get('siteUrl')) === false) {
-                return false;
+        try {
+            if (isset($_SERVER['HTTP_REFERER'])) {
+                if (strpos($_SERVER['HTTP_REFERER'], $this->settings->get('siteUrl')) === false) {
+                    throw new \Exception('Send from unknown referrer.');
+                }
+            } else {
+                throw new \Exception('Send from unknown referrer.');
             }
-            return true;
-        } else {
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
             return false;
         }
+        return true;
     }
     
     /**
@@ -281,41 +337,48 @@ class ValidateHandler implements ValidateHandlerInterface
      */
     public function checkinHuman(): void
     {
-        // reCAPTCHA シークレットキー
-        $secretKey = null;
-        if (isset($this->validateSettings['RECAPTCHA_SECRETKEY'])) {
-            $secretKey = $this->validateSettings['RECAPTCHA_SECRETKEY'];
+        if (empty($this->validateSettings['RECAPTCHA_SECRETKEY'])) {
+            return;
         }
-
-        if ($secretKey) {
-            Validator::addRule('HumanValidator', function ($field, $value, $params, $fields) use ($secretKey) {
-                try {
-                    if (isset($_SERVER['SERVER_NAME'], $_SERVER['REMOTE_ADDR'])) {
-                        // 指定したアクション名を取得.
-                        $action = isset($fields['_recaptcha-action'])? $fields['_recaptcha-action']: '';
-
-                        $recaptcha = new ReCaptcha($secretKey);
-                        $response = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
-                            ->setExpectedAction($action)
-                            ->setScoreThreshold($this->threshold)
-                            ->verify($value, $_SERVER['REMOTE_ADDR']);
-        
-                        if (!$response->isSuccess()) {
-                            throw new \Exception($response->getErrorCodes()[0]);
-                        }
-                    } else {
-                        throw new \Exception('Unknown Terminal.');
+        Validator::addRule('HumanValidator', function ($field, $value, $params, $fields) {
+            try {
+                if (isset($_SERVER['SERVER_NAME'], $_SERVER['REMOTE_ADDR'])) {
+                    // 指定したアクション名を取得.
+                    $action = isset($fields['_recaptcha-action'])? $fields['_recaptcha-action']: '';
+                    if (! method_exists($this->recaptcha, 'setExpectedHostname')) {
+                        throw new \Exception('reCAPTCHA configuration error.');
                     }
-                    return true;
-                } catch (\Exception $e) {
-                    return false;
+                    $response = $this->recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
+                        ->setExpectedAction($action)
+                        ->setScoreThreshold($this->threshold)
+                        ->verify($value, $_SERVER['REMOTE_ADDR']);
+        
+                    if (!$response->isSuccess()) {
+                        if ($response->getScore() !== null) {
+                            throw new \Exception('reCAPTCHA score' . (string) $response->getScore());
+                        } else {
+                            throw new \Exception('reCAPTCHA response error.');
+                        }
+                    }
+                } else {
+                    throw new \Exception('Unknown response.');
                 }
-            });
-            $this->validate->rule('HumanValidator', '_recaptcha-response')->message(
-                $this->validateSettings['MESSAGE_UNKNOWN_ACCESS']
-            );
-            $this->validate->rule('required', ['_recaptcha-response', '_recaptcha-action'])->message('');
-        }
+            } catch (\Exception $e) {
+                if (! $this->validate->errors($field)) {
+                    $this->logger->error($e->getMessage(), [
+                        'email' => $this->getHiddenEmail($fields[$this->formSettings['EMAIL_ATTRIBUTE']]),
+                        'subject' => $fields[$this->formSettings['SUBJECT_ATTRIBUTE']],
+                        'ip' => isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR']:''
+                    ]);
+                }
+                return false;
+            }
+            return true;
+        });
+        $this->validate->rule('HumanValidator', '_recaptcha-response')->message(
+            $this->validateSettings['MESSAGE_UNKNOWN_ACCESS']
+        );
+        $this->validate->rule('required', ['_recaptcha-response', '_recaptcha-action'])->message('');
     }
 
     /**
@@ -343,5 +406,16 @@ class ValidateHandler implements ValidateHandlerInterface
                 'script' => '',
             ];
         }
+    }
+
+    /**
+     * 伏字のEmail
+     *
+     * @param  string $email
+     * @return string
+     */
+    public function getHiddenEmail(string $email): string
+    {
+        return substr($email, 0, 1) . str_repeat('*', strlen(strstr($email, '@', true)) - 1) . strstr($email, '@');
     }
 }

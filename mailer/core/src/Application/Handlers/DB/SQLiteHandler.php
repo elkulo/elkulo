@@ -1,7 +1,7 @@
 <?php
 /**
- * Mailer | el.kulo v3.0.0 (https://github.com/elkulo/Mailer/)
- * Copyright 2020-2021 A.Sudo
+ * Mailer | el.kulo v3.1.0 (https://github.com/elkulo/Mailer/)
+ * Copyright 2020-2022 A.Sudo
  * Licensed under LGPL-2.1-only (https://github.com/elkulo/Mailer/blob/main/LICENSE)
  */
 declare(strict_types=1);
@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace App\Application\Handlers\DB;
 
 use App\Application\Settings\SettingsInterface;
-use App\Application\Router\RouterInterface;
 use Psr\Log\LoggerInterface;
 use Illuminate\Database\Capsule\Manager;
 
@@ -18,11 +17,6 @@ use Illuminate\Database\Capsule\Manager;
  */
 class SQLiteHandler implements DBHandlerInterface
 {
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var LoggerInterface
@@ -68,14 +62,12 @@ class SQLiteHandler implements DBHandlerInterface
      * DBを作成
      *
      * @param  SettingsInterface $settings
-     * @param  RouterInterface $router
      * @param  LoggerInterface $logger
      * @return void
      */
-    public function __construct(SettingsInterface $settings, RouterInterface $router, LoggerInterface $logger)
+    public function __construct(SettingsInterface $settings, LoggerInterface $logger)
     {
         try {
-            $this->router = $router;
             $this->logger = $logger;
 
             $appPath = $settings->get('appPath');
