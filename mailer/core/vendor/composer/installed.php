@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '454b42c44b0b14457254c40c9519fa09f49fdd8c',
+        'reference' => '624042a3c792a842b1129813ed6d2b8adc283eab',
         'name' => 'elkulo/mailer',
         'dev' => true,
     ),
@@ -70,7 +70,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '454b42c44b0b14457254c40c9519fa09f49fdd8c',
+            'reference' => '624042a3c792a842b1129813ed6d2b8adc283eab',
             'dev_requirement' => false,
         ),
         'fig/http-message-util' => array(
