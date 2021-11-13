@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Me | el.kulo</title>
-    <meta name="robots" content="noindex,nofollow" />
+    <meta name="robots" content="noindex,follow" />
     <meta name="description" itemprop="description" content="FRONT END DEVELOPER & DESIGNER" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Noto+Serif+JP:wght@500&display=swap" />
@@ -62,7 +62,7 @@
       .icon-mail-envelope {
         vertical-align: middle;
         font-size: 2em;
-        padding-bottom: 0.075em;
+        padding-bottom: 0.1em;
         margin-right: 0.125em;
       }
       .btn[data-bs-toggle="modal"] {
@@ -80,8 +80,8 @@
       id="page"
       class="d-flex flex-column align-items-center justify-content-center"
     >
-      <main class="container py-1 mb-5" style="max-width: 560px">
-        <article class="card shadow-sm">
+      <main class="container py-1 mb-5" style="max-width: 480px">
+        <article class="card shadow-sm rounded-0">
           <img
             src="/images/avatar.jpg"
             class="rounded-circle mx-auto mt-4"
@@ -90,10 +90,10 @@
           <div class="card-body text-center">
             <h1 class="card-title mb-3 h3">el.kulo</h1>
             <p class="card-text">FRONT-END DEVELOPER & DESIGNER.</p>
-            <div class="mt-3 mb-2">
+            <div class="my-3">
               <a
                 href="./forms/elkulo-me/post"
-                class="btn btn-outline-dark shadow-none px-5"
+                class="btn btn-md btn-outline-dark shadow-none pt-1 pb-0 px-5"
                 rel="noopener noreferrer"
                 title="CONTACT"
               >
@@ -102,12 +102,13 @@
               </a>
             </div>
             <button
-              class="btn btn-link link-secondary shadow-none"
+              class="btn btn-sm btn-link shadow-none"
               data-bs-toggle="modal"
               data-bs-target="#__modal--0"
-              title="README"
+              title="私について"
+              style="color: #424f57; font-weight: 300"
             >
-              README
+              私について
             </button>
           </div>
         </article>
