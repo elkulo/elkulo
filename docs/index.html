@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+
+ヾ(*´∀｀*)ﾉ　＜ ここはGitHubプロフィールのREADME.mdをAjaxでHTML出力しただけの暇つぶし制作のページです。
+
+by A.Sudo on May 21, 2019.
+
+-->
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -20,17 +27,12 @@
         color: #626e75;
         background: #e9e1ee;
       }
-      h1 {
+      h1,
+      .copyright {
         font-family: "Noto Serif JP";
         color: #424f57;
       }
-      .copyright {
-        font-family: "Noto Serif JP";
-        color: #fff;
-      }
       body > #page {
-        background: url("images/texture.png"), url("images/background.jpg") 50% 50%;
-        background-size: 100px, cover;
         min-height: 600px;
         height: 100%;
         filter: blur(0px);
@@ -73,15 +75,18 @@
         text-underline-offset: 2px;
         text-decoration-thickness: 1px;
       }
+      .icon-github {
+        color: #424f57;
+      }
     </style>
   </head>
   <body>
     <div
       id="page"
-      class="d-flex flex-column align-items-center justify-content-center"
+      class="d-flex flex-column align-items-center justify-content-center bg-light"
     >
-      <main class="container py-1 mb-5" style="max-width: 480px">
-        <article class="card shadow-sm rounded-0">
+      <main class="container pt-1 pb-5 mb-5" style="max-width: 480px">
+        <article class="card border-0 bg-transparent mb-5">
           <img
             src="/images/avatar.jpg"
             class="rounded-circle mx-auto mt-4"
@@ -113,8 +118,8 @@
           </div>
         </article>
       </main>
-      <footer class="position-absolute bottom-0 start-0 w-100 text-center py-3">
-        <a href="https://github.com/elkulo" target="_blank" title="https://github.com/elkulo/" class="d-inline-block mb-2 display-6 text-white">
+      <footer class="position-absolute bottom-0 start-0 w-100 text-center py-5">
+        <a href="https://github.com/elkulo" target="_blank" title="https://github.com/elkulo/" class="d-inline-block mb-2 display-6">
           <svg class="svg-icon icon-github"><use xlink:href="#icon-github"></use></svg>
         </a>
         <div class="copyright">&copy; Me | el.kulo</div>
@@ -135,7 +140,7 @@
             >
               <button
                 type="button"
-                class="btn-close"
+                class="btn-close shadow-none"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
