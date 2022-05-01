@@ -17,11 +17,11 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 ### スキル 
 
->**主な言語**  
->HTML5, Sass(SCSS), JavaScript(ES6+), PHP(7.4+)
+>**主要言語**  
+>HTML5, Sass(SCSS), TypeScript, JavaScript(^ES6), PHP(^8.0)
 
->**主なライブラリ**  
->React, Gatsby, Vue, WordPress, Slim Framework, Laravel, FuelPHP, 他
+>**主要ライブラリ**  
+>React, Gatsby, Vue, Express, WordPress, Slim Framework, Laravel, FuelPHP, 他
 
 ---
 
@@ -29,7 +29,7 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 - **Portfolio**  
 https://elkulo.github.io/  
-JAMstackな React のポートフォリオサイト  
+JAMstackな React x Gatsby のポートフォリオ  
 
 - **Mailer**  
 https://mailer.elkulo.me/  
@@ -37,7 +37,7 @@ WordPressにも組み込めるモダンでシンプルな Slim Framework のメ�
 
 - **Feeder**  
 https://feeder.elkulo.me/  
-管理下のWordPressの更新状況を一元監視するための Vue x Slim のRSSフィードリーダー  
+WordPressの更新状況を一元監視するための Vue x Slim のRSSフィードリーダー  
 
 ---
 
@@ -45,7 +45,7 @@ https://feeder.elkulo.me/
 
 - **API Server**  
 https://api.elkulo.me/  
-JAMstack連携用に Slim Framework のAPIサーバー  
+JAMstack用に作った Slim Framework のAPIサーバー  
 
 ---
 
@@ -58,16 +58,13 @@ iPad mini + Apple Pencil
 Adobe illustrator / Adobe Photoshop / Adobe XD
 
 **■ コードエディッター**  
-VSCode
+VSCode / Panic Nova
 
-**■ 動画編集**  
+**■ 動画&音楽**  
 Apple Final Cut Pro / Apple GarageBand
 
 **■ SFTP**  
 Panic Transmit
-
-**■ SSH**  
-Hyper
 
 ---
 
