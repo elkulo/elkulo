@@ -13,39 +13,35 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 写真や映像、音楽制作などクリエイトすることにジャンルを問わず興味を持っています。
 
-デザインをメインに据えたいところですが、HTML / CSS / JavaScript / PHP の実務歴は15年以上となり、修得レベルは比較的高いほうです。
+デザインをメインに据えたいところですが、HTML / CSS / JavaScript / PHP の実務歴は 15 年以上となり、修得レベルは比較的高いほうです。
 
-### スキル 
+## スキル
 
->**主要言語**  
->HTML5, Sass(SCSS), TypeScript, JavaScript(^ES6), PHP(^8.0)
+> **主要言語**  
+> HTML5, Sass(SCSS), TypeScript, JavaScript(^ES6), PHP(^8.0)
 
->**主要ライブラリ**  
->React, Gatsby, Vue, Express, WordPress, Slim Framework, Laravel, FuelPHP, 他
+> **主要ライブラリ**  
+> React, Gatsby, Vue, Express, WordPress, Slim Framework, Laravel, FuelPHP, 他
 
 ---
 
 ### 個人制作
 
 - **Portfolio**  
-https://elkulo.github.io/  
-JAMstackな React x Gatsby のポートフォリオ  
+  <https://elkulo.github.io/>  
+  JAMstack な React x Gatsby のポートフォリオ
 
 - **Mailer**  
-https://mailer.elkulo.me/  
-WordPressにも組み込めるモダンでシンプルな Slim Framework のメールフォーム  
+  <https://mailer.elkulo.me/>  
+  WordPress にも組み込めるモダンでシンプルな Slim Framework のメールフォーム
 
 - **Feeder**  
-https://feeder.elkulo.me/  
-WordPressの更新状況を一元監視するための Vue x Slim のRSSフィードリーダー  
-
----
-
-#### その他
+  <https://feeder.elkulo.me/>  
+  WordPress の更新状況を一元監視する Vue x Slim Framework の RSS フィードリーダー
 
 - **API Server**  
-https://api.elkulo.me/  
-JAMstack用に作った Slim Framework のAPIサーバー  
+  <https://api.elkulo.me/>  
+  JAMstack 用に作った Slim Framework の API サーバー
 
 ---
 
@@ -72,4 +68,4 @@ Panic Transmit
 
 個人制作のコードは Github で公開しています。評価するには私の書いたコードを見てください。
 
-https://github.com/elkulo
+<https://github.com/elkulo>
