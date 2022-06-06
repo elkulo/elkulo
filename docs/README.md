@@ -21,7 +21,7 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 > HTML5, Sass(SCSS), TypeScript, JavaScript(^ES6), PHP(^8.0)
 
 > **主要ライブラリ**  
-> React, Gatsby, Vue, Express, WordPress, Slim Framework, Laravel, FuelPHP, 他
+> React, Gatsby, Vue(v3), Express, WordPress, Slim Framework, Laravel, 他
 
 ---
 
@@ -37,7 +37,7 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 - **Feeder**  
   <https://feeder.elkulo.me/>  
-  WordPress の更新状況を一元監視する Vue x Slim Framework の RSS フィードリーダー
+  WordPress の更新状況を一元監視する Vue x Slim Framework の RSSリーダー
 
 - **API Server**  
   <https://api.elkulo.me/>  
