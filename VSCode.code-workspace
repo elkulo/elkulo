@@ -6,6 +6,9 @@
   ],
   "settings": {
     "editor.insertSpaces": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "path-autocomplete.pathMappings": {
+      "@": "${folder}/src", // srcのエイリアス.
+    }
   }
 }
