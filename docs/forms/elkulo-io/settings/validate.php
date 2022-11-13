@@ -11,7 +11,7 @@ return [
   'RECAPTCHA_SECRETKEY' => env('RECAPTCHA_SECRETKEY'),
 
   // reCAPTCHAの閾値
-  'RECAPTCHA_THRESHOLD' => 0.3,
+  'RECAPTCHA_THRESHOLD' => 0.1,
 
   // 必須項目が未記入時のメッセージ。{field}でラベル名に置き換える
   'MESSAGE_REQUIRED_FIELD' => '{field}を入力してください。',
