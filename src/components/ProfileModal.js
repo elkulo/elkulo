@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { indigo, blueGrey } from '@mui/material/colors';
 import Styled from '@emotion/styled';
+import $readme from '@docs/readme/README.md';
 
 const Dialog = Styled(muiDialog)`
   .MuiBackdrop-root {
@@ -72,7 +73,7 @@ const ProfileModal = ({ emits }) => {
 
   React.useEffect(() => {
     axios
-      .get(encodeURI('/README.md'), {
+      .get(encodeURI($readme), {
         responseType: 'text',
         headers: { Accept: 'text/plain' },
       })
@@ -103,7 +104,6 @@ const ProfileModal = ({ emits }) => {
         </CloseButton>
         <ReactMarkdown
           className="markdown-body"
-          linkTarget={'_blank'}
           remarkPlugins={[remarkGFM]}
           children={getEntry}
         />

@@ -1,13 +1,13 @@
 {
   "name": "elkulo_me",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Githubプロフィール",
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules package-lock.json && npm install",
     "start": "react-scripts start",
     "develop": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false BUILD_PATH=./docs react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "staging": "sh ./bin/serve.sh"
   },
@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^14.5.1"
   },
   "dependencies": {
+    "@docs/readme": "file:docs",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.13",
