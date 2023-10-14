@@ -25,7 +25,7 @@ class TreeBuilder implements NodeParentInterface
 
     public function __construct(string $name, string $type = 'array', NodeBuilder $builder = null)
     {
-        $builder = $builder ?? new NodeBuilder();
+        $builder ??= new NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
 
@@ -51,6 +51,9 @@ class TreeBuilder implements NodeParentInterface
         return $this->tree = $this->root->getNode(true);
     }
 
+    /**
+     * @return void
+     */
     public function setPathSeparator(string $separator)
     {
         // unset last built as changing path separator changes all nodes

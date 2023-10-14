@@ -609,31 +609,33 @@ function twig_urlencode_filter($url)
 }
 
 /**
- * Merges an array with another one.
+ * Merges any number of arrays or Traversable objects.
  *
  *  {% set items = { 'apple': 'fruit', 'orange': 'fruit' } %}
  *
- *  {% set items = items|merge({ 'peugeot': 'car' }) %}
+ *  {% set items = items|merge({ 'peugeot': 'car' }, { 'banana': 'fruit' }) %}
  *
- *  {# items now contains { 'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car' } #}
+ *  {# items now contains { 'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car', 'banana': 'fruit' } #}
  *
- * @param array|\Traversable $arr1 An array
- * @param array|\Traversable $arr2 An array
+ * @param array|\Traversable ...$arrays Any number of arrays or Traversable objects to merge
  *
  * @return array The merged array
  */
-function twig_array_merge($arr1, $arr2)
+function twig_array_merge(...$arrays)
 {
-    if (!twig_test_iterable($arr1)) {
-        throw new RuntimeError(sprintf('The merge filter only works with arrays or "Traversable", got "%s" as first argument.', \gettype($arr1)));
+    $result = [];
+
+    foreach ($arrays as $argNumber => $array) {
+        if (!twig_test_iterable($array)) {
+            throw new RuntimeError(sprintf('The merge filter only works with arrays or "Traversable", got "%s" for argument %d.', \gettype($array), $argNumber + 1));
+        }
+
+        $result = array_merge($result, twig_to_array($array));
     }
 
-    if (!twig_test_iterable($arr2)) {
-        throw new RuntimeError(sprintf('The merge filter only works with arrays or "Traversable", got "%s" as second argument.', \gettype($arr2)));
-    }
-
-    return array_merge(twig_to_array($arr1), twig_to_array($arr2));
+    return $result;
 }
+
 
 /**
  * Slices a variable.
@@ -1021,19 +1023,19 @@ function twig_compare($a, $b)
 
 /**
  * @param string $pattern
- * @param string $subject
+ * @param string|null $subject
  *
  * @return int
  *
  * @throws RuntimeError When an invalid pattern is used
  */
-function twig_matches(string $regexp, string $str)
+function twig_matches(string $regexp, ?string $str)
 {
     set_error_handler(function ($t, $m) use ($regexp) {
         throw new RuntimeError(sprintf('Regexp "%s" passed to "matches" is not valid', $regexp).substr($m, 12));
     });
     try {
-        return preg_match($regexp, $str);
+        return preg_match($regexp, $str ?? '');
     } finally {
         restore_error_handler();
     }
@@ -1703,20 +1705,21 @@ function twig_array_reduce(Environment $env, $array, $arrow, $initial = null)
 {
     twig_check_arrow_in_sandbox($env, $arrow, 'reduce', 'filter');
 
-    if (!\is_array($array)) {
-        if (!$array instanceof \Traversable) {
-            throw new RuntimeError(sprintf('The "reduce" filter only works with arrays or "Traversable", got "%s" as first argument.', \gettype($array)));
-        }
-
-        $array = iterator_to_array($array);
+    if (!\is_array($array) && !$array instanceof \Traversable) {
+        throw new RuntimeError(sprintf('The "reduce" filter only works with arrays or "Traversable", got "%s" as first argument.', \gettype($array)));
     }
 
-    return array_reduce($array, $arrow, $initial);
+    $accumulator = $initial;
+    foreach ($array as $key => $value) {
+        $accumulator = $arrow($accumulator, $value, $key);
+    }
+
+    return $accumulator;
 }
 
 function twig_array_some(Environment $env, $array, $arrow)
 {
-    twig_check_arrow_in_sandbox($env, $arrow, 'some', 'filter');
+    twig_check_arrow_in_sandbox($env, $arrow, 'has some', 'operator');
 
     foreach ($array as $k => $v) {
         if ($arrow($v, $k)) {
@@ -1729,7 +1732,7 @@ function twig_array_some(Environment $env, $array, $arrow)
 
 function twig_array_every(Environment $env, $array, $arrow)
 {
-    twig_check_arrow_in_sandbox($env, $arrow, 'every', 'filter');
+    twig_check_arrow_in_sandbox($env, $arrow, 'has every', 'operator');
 
     foreach ($array as $k => $v) {
         if (!$arrow($v, $k)) {

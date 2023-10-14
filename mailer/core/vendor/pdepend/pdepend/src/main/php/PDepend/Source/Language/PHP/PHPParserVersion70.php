@@ -248,7 +248,7 @@ abstract class PHPParserVersion70 extends PHPParserVersion56
                 $name = $this->parseQualifiedName();
 
                 return $this->isScalarOrCallableTypeHint($name)
-                    ? $this->parseScalarOrCallableTypeHint($name)
+                    ? ($this->parseScalarOrCallableTypeHint($name) ?: null)
                     : $this->builder->buildAstClassOrInterfaceReference($name);
 
             default:
@@ -605,12 +605,14 @@ abstract class PHPParserVersion70 extends PHPParserVersion56
             return null;
         }
 
-        throw $this->getUnexpectedTokenException($this->tokenizer->next());
+        throw $this->getUnexpectedNextTokenException();
     }
 
     /**
      * use Foo\Bar\{TestA, TestB} is allowed since PHP 7.0
      * use Foo\Bar\{TestA, TestB,} but trailing comma isn't
+     *
+     * @return bool
      */
     protected function allowUseGroupDeclarationTrailingComma()
     {

@@ -103,7 +103,7 @@ class ClassLevelAnalyzer extends AbstractAnalyzer implements AggregateAnalyzer, 
      * )
      * </code>
      *
-     * @var array<string, array>
+     * @var array<string, array<string, int>>
      */
     private $nodeMetrics = null;
 
@@ -116,8 +116,6 @@ class ClassLevelAnalyzer extends AbstractAnalyzer implements AggregateAnalyzer, 
 
     /**
      * Processes all {@link ASTNamespace} code nodes.
-     *
-     * @param ASTNamespace[] $namespaces
      *
      * @return void
      */
@@ -348,8 +346,6 @@ class ClassLevelAnalyzer extends AbstractAnalyzer implements AggregateAnalyzer, 
      * Calculates the Weight Method Per Class metric, this method only counts
      * protected and public methods of parent classes.
      *
-     * @param ASTClass|ASTEnum|ASTTrait $class The context class instance.
-     *
      * @return int
      */
     private function calculateWmciForClass(AbstractASTClassOrInterface $class)
@@ -401,6 +397,11 @@ class ClassLevelAnalyzer extends AbstractAnalyzer implements AggregateAnalyzer, 
         return $ccn;
     }
 
+    /**
+     * @param ASTClass|ASTEnum $class
+     *
+     * @return void
+     */
     private function calculateAbstractASTClassOrInterfaceMetrics(AbstractASTClassOrInterface $class)
     {
         $impl  = count($class->getInterfaces());

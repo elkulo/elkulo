@@ -86,20 +86,20 @@ class TokenStack
     public function push()
     {
         $this->stack[$this->offset++] = $this->tokens;
-        $this->tokens                  = array();
+        $this->tokens                 = array();
     }
 
     /**
      * This method will pop the top token scope from the stack and return an
-     * array with all collected tokens. Additionally this method will add all
+     * array with all collected tokens. Additionally, this method will add all
      * tokens of the removed scope onto the next token scope.
      *
      * @return Token[]
      */
     public function pop()
     {
-        $tokens        = $this->tokens;
-        $this->tokens = $this->stack[--$this->offset];
+        $tokens       = $this->tokens;
+        $this->tokens = isset($this->stack[--$this->offset]) ? $this->stack[$this->offset] : array();
 
         unset($this->stack[$this->offset]);
 

@@ -42,8 +42,8 @@
 
 namespace PDepend\Source\AST;
 
+use InvalidArgumentException;
 use PDepend\Source\AST\AbstractASTNode;
-use PDepend\Source\AST\ASTVariableDeclarator;
 use PDepend\Source\Tokenizer\Token;
 use PDepend\Util\Cache\CacheDriver;
 
@@ -227,7 +227,7 @@ abstract class AbstractASTCallable extends AbstractASTArtifact implements ASTCal
     {
         return (array) $this->cache
             ->type('tokens')
-            ->restore($this->id);
+            ->restore($this->getId());
     }
 
     /**
@@ -239,12 +239,16 @@ abstract class AbstractASTCallable extends AbstractASTArtifact implements ASTCal
      */
     public function setTokens(array $tokens)
     {
+        if ($tokens === array()) {
+            throw new InvalidArgumentException('An AST node should contain at least one token');
+        }
+
         $this->startLine = reset($tokens)->startLine;
         $this->endLine   = end($tokens)->endLine;
 
         $this->cache
             ->type('tokens')
-            ->store($this->id, $tokens);
+            ->store($this->getId(), $tokens);
     }
 
     /**

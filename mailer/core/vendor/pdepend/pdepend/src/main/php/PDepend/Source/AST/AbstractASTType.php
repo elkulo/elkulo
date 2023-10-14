@@ -44,6 +44,7 @@
 
 namespace PDepend\Source\AST;
 
+use InvalidArgumentException;
 use OutOfBoundsException;
 use PDepend\Source\AST\ASTTraitUseStatement;
 use PDepend\Source\Builder\BuilderContext;
@@ -298,9 +299,11 @@ abstract class AbstractASTType extends AbstractASTArtifact
             ->type('methods')
             ->restore($this->getId());
 
-        foreach ($methods as $method) {
-            $method->compilationUnit = $this->compilationUnit;
-            $method->setParent($this);
+        if ($this instanceof AbstractASTClassOrInterface) {
+            foreach ($methods as $method) {
+                $method->compilationUnit = $this->compilationUnit;
+                $method->setParent($this);
+            }
         }
 
         return new ASTArtifactList($methods);
@@ -313,7 +316,9 @@ abstract class AbstractASTType extends AbstractASTArtifact
      */
     public function addMethod(ASTMethod $method)
     {
-        $method->setParent($this);
+        if ($this instanceof AbstractASTClassOrInterface) {
+            $method->setParent($this);
+        }
 
         $this->methods[] = $method;
 
@@ -383,7 +388,7 @@ abstract class AbstractASTType extends AbstractASTArtifact
     {
         return (array) $this->cache
             ->type('tokens')
-            ->restore($this->id);
+            ->restore($this->getId());
     }
 
     /**
@@ -395,6 +400,10 @@ abstract class AbstractASTType extends AbstractASTArtifact
      */
     public function setTokens(array $tokens, Token $startToken = null)
     {
+        if ($tokens === array()) {
+            throw new InvalidArgumentException('An AST node should contain at least one token');
+        }
+
         if (!$startToken) {
             $startToken = reset($tokens);
         }
@@ -404,7 +413,7 @@ abstract class AbstractASTType extends AbstractASTArtifact
 
         $this->cache
             ->type('tokens')
-            ->store($this->id, $tokens);
+            ->store($this->getId(), $tokens);
     }
 
     /**
@@ -502,7 +511,7 @@ abstract class AbstractASTType extends AbstractASTArtifact
         if (is_array($this->methods)) {
             $this->cache
                 ->type('methods')
-                ->store($this->id, $this->methods);
+                ->store($this->getId(), $this->methods);
 
             $this->methods = null;
         }

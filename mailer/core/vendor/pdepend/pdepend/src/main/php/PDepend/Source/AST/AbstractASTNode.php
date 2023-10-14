@@ -91,9 +91,18 @@ abstract class AbstractASTNode implements ASTNode
      */
     protected $metadata = '::::';
 
+    /**
+     * @template T of array<string, mixed>|string|null
+     *
+     * @param T $data
+     *
+     * @return T
+     */
     public function accept(ASTVisitor $visitor, $data = null)
     {
-        throw new BadMethodCallException('Accept must be overwritten');
+        $methodName = 'visit' . substr(get_class($this), 22);
+
+        return call_user_func(array($visitor, $methodName), $this, $data);
     }
 
     /**
@@ -234,7 +243,7 @@ abstract class AbstractASTNode implements ASTNode
      */
     protected function setMetadataInteger($index, $value)
     {
-        $this->setMetadata($index, $value);
+        $this->setMetadata($index, (string)$value);
     }
 
     /**
@@ -264,7 +273,7 @@ abstract class AbstractASTNode implements ASTNode
      */
     protected function setMetadataBoolean($index, $value)
     {
-        $this->setMetadata($index, $value ? 1 : 0);
+        $this->setMetadata($index, $value ? '1' : '0');
     }
 
     /**
@@ -287,6 +296,7 @@ abstract class AbstractASTNode implements ASTNode
      * container.
      *
      * @param int $index
+     * @param string $value
      *
      * @return void
      *
@@ -407,6 +417,8 @@ abstract class AbstractASTNode implements ASTNode
 
     /**
      * This method adds a new child node to this node instance.
+     *
+     * @param ASTNode $node
      *
      * @return void
      */

@@ -71,7 +71,7 @@ class ExtensionManager
         if (!class_exists($className)) {
             throw new RuntimeException(
                 sprintf(
-                    'Cannot find extension class %s" for PDepend. Maybe the plugin is not installed?',
+                    'Cannot find extension class "%s" for PDepend. Maybe the plugin is not installed?',
                     $className
                 )
             );

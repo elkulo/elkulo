@@ -78,8 +78,6 @@ class HalsteadAnalyzer extends AbstractCachingAnalyzer implements AnalyzerNodeAw
     /**
      * Processes all {@link ASTNamespace} code nodes.
      *
-     * @param ASTNamespace[] $namespaces
-     *
      * @return void
      */
     public function analyze($namespaces)
@@ -361,10 +359,10 @@ class HalsteadAnalyzer extends AbstractCachingAnalyzer implements AnalyzerNodeAw
         }
 
         $this->metrics[$callable->getId()] = array(
-            'n1' => count($operators),
-            'n2' => count($operands),
-            'N1' => count(array_unique($operators)),
-            'N2' => count(array_unique($operands)),
+            'n1' => count(array_unique($operators)),
+            'n2' => count(array_unique($operands)),
+            'N1' => count($operators),
+            'N2' => count($operands),
         );
     }
 

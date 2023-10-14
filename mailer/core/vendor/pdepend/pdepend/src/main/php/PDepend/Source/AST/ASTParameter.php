@@ -338,6 +338,8 @@ class ASTParameter extends AbstractASTArtifact
      * {@link ASTParameter::isDefaultValueAvailable()} to
      * detect a NULL-value.
      *
+     * @return mixed
+     *
      * @since  0.9.5
      */
     public function getDefaultValue()
@@ -345,16 +347,6 @@ class ASTParameter extends AbstractASTArtifact
         $value = $this->variableDeclarator->getValue();
 
         return $value === null ? null : $value->getValue();
-    }
-
-    /**
-     * ASTVisitor method for node tree traversal.
-     *
-     * @return void
-     */
-    public function accept(ASTVisitor $visitor)
-    {
-        $visitor->visitParameter($this);
     }
 
     /**
@@ -416,6 +408,11 @@ class ASTParameter extends AbstractASTArtifact
         );
     }
 
+    /**
+     * @param ASTNode $node
+     *
+     * @return bool
+     */
     private function isTypeAllowingNull($node)
     {
         if ($node instanceof ASTUnionType) {

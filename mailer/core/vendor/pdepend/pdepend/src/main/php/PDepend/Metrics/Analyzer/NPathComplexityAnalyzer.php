@@ -83,8 +83,6 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
     /**
      * Processes all {@link ASTNamespace} code nodes.
      *
-     * @param ASTNamespace[] $namespaces
-     *
      * @return void
      */
     public function analyze($namespaces)
@@ -196,10 +194,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(?) = NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 2 --
      * </code>
      *
-     * @param ASTNode $node
-     * @param string  $data
+     * @param ASTNode        $node
+     * @param numeric-string $data
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -239,16 +237,16 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(do) = NP(<do-range>) + NP(<expr>) + 1 --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
     public function visitDoWhileStatement($node, $data)
     {
-        $stmt = $node->getChild(0)->accept($this, 1);
+        $stmt = $node->getChild(0)->accept($this, '1');
         $expr = $this->sumComplexity($node->getChild(1));
 
         $npath = MathUtil::add($expr, $stmt);
@@ -279,9 +277,9 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * </code>
      *
      * @param ASTElseIfStatement $node The currently visited node.
-     * @param string             $data The previously calculated npath value.
+     * @param numeric-string     $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -290,7 +288,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
         $npath = $this->sumComplexity($node->getChild(0));
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTStatement) {
-                $expr  = $child->accept($this, 1);
+                $expr  = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $expr);
             }
         }
@@ -314,10 +312,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(for) = NP(<for-range>) + NP(<expr1>) + NP(<expr2>) + NP(<expr3>) + 1 --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -326,7 +324,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
         $npath = '1';
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTStatement) {
-                $stmt  = $child->accept($this, 1);
+                $stmt  = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $stmt);
             } elseif ($child instanceof ASTExpression) {
                 $expr  = $this->sumComplexity($child);
@@ -349,10 +347,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(foreach) = NP(<foreach-range>) + NP(<expr>) + 1 --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -363,7 +361,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
 
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTStatement) {
-                $stmt  = $child->accept($this, 1);
+                $stmt  = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $stmt);
             }
         }
@@ -393,9 +391,9 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * </code>
      *
      * @param ASTIfStatement $node The currently visited node.
-     * @param string         $data The previously calculated npath value.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -405,7 +403,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
 
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTStatement) {
-                $stmt  = $child->accept($this, 1);
+                $stmt  = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $stmt);
             }
         }
@@ -427,10 +425,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(return) = NP(<expr>) --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -456,10 +454,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(switch) = NP(<expr>) + NP(<default-range>) +  NP(<case-range1>) ... --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -468,7 +466,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
         $npath = $this->sumComplexity($node->getChild(0));
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTSwitchLabel) {
-                $label = $child->accept($this, 1);
+                $label = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $label);
             }
         }
@@ -499,10 +497,10 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(try) = NP(<try-range>) + NP(<catch-range1>) + NP(<catch-range2>) ... --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
@@ -511,7 +509,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
         $npath = '0';
         foreach ($node->getChildren() as $child) {
             if ($child instanceof ASTStatement) {
-                $stmt  = $child->accept($this, 1);
+                $stmt  = $child->accept($this, '1');
                 $npath = MathUtil::add($npath, $stmt);
             }
         }
@@ -530,17 +528,17 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      * -- NP(while) = NP(<while-range>) + NP(<expr>) + 1 --
      * </code>
      *
-     * @param ASTNode $node The currently visited node.
-     * @param string  $data The previously calculated npath value.
+     * @param ASTNode        $node The currently visited node.
+     * @param numeric-string $data The previously calculated npath value.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      */
     public function visitWhileStatement($node, $data)
     {
         $expr = $this->sumComplexity($node->getChild(0));
-        $stmt = $node->getChild(1)->accept($this, 1);
+        $stmt = $node->getChild(1)->accept($this, '1');
 
         $npath = MathUtil::add($expr, $stmt);
         $npath = MathUtil::add($npath, '1');
@@ -553,7 +551,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
      *
      * @param ASTNode $node The currently visited node.
      *
-     * @return string
+     * @return numeric-string
      *
      * @since  0.9.12
      *
@@ -565,7 +563,7 @@ class NPathComplexityAnalyzer extends AbstractCachingAnalyzer implements Analyze
     {
         $sum = '0';
         if ($node instanceof ASTConditionalExpression) {
-            $sum = MathUtil::add($sum, $node->accept($this, 1));
+            $sum = MathUtil::add($sum, $node->accept($this, '1'));
         } elseif ($node instanceof ASTBooleanAndExpression
             || $node instanceof ASTBooleanOrExpression
             || $node instanceof ASTLogicalAndExpression

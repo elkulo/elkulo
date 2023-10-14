@@ -46,6 +46,8 @@ namespace PDepend\Source\Language\PHP;
 
 use PDepend\Source\AST\ASTNode;
 use PDepend\Source\AST\ASTScalarType;
+use PDepend\Source\AST\ASTType;
+use PDepend\Source\Tokenizer\Token;
 use PDepend\Source\Tokenizer\Tokens;
 
 /**
@@ -58,6 +60,7 @@ use PDepend\Source\Tokenizer\Tokens;
  */
 abstract class PHPParserVersion82 extends PHPParserVersion81
 {
+    /** @var array<int, int> */
     protected $possiblePropertyTypes = array(
         Tokens::T_STRING,
         Tokens::T_ARRAY,
@@ -100,6 +103,9 @@ abstract class PHPParserVersion82 extends PHPParserVersion81
         return parent::isTypeHint($tokenType);
     }
 
+    /**
+     * @return ASTType
+     */
     protected function parseSingleTypeHint()
     {
         $this->consumeComments();
@@ -117,7 +123,9 @@ abstract class PHPParserVersion82 extends PHPParserVersion81
 
             case Tokens::T_TRUE:
                 $type = new ASTScalarType('true');
-                $this->tokenStack->add($this->tokenizer->next());
+                $token = $this->tokenizer->next();
+                assert($token instanceof Token);
+                $this->tokenStack->add($token);
                 $this->consumeComments();
 
                 return $type;

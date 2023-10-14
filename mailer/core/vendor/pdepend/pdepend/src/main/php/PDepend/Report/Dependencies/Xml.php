@@ -211,7 +211,6 @@ class Xml extends AbstractASTVisitor implements CodeAwareGenerator, FileAwareGen
     /**
      * Generates the XML for a class or trait node.
      *
-     * @param ASTClass $type
      * @param string   $typeIdentifier
      *
      * @return void
@@ -306,7 +305,6 @@ class Xml extends AbstractASTVisitor implements CodeAwareGenerator, FileAwareGen
             return;
         }
 
-        $xml = end($this->xmlStack);
         $doc = $xml->ownerDocument;
 
         $efferentXml = $doc->createElement('efferent');

@@ -62,7 +62,7 @@ use PDepend\Source\AST\ASTMethod;
 class IdBuilder
 {
     /**
-     * @var array<array>
+     * @var array<string, array<string, int>>
      *
      * @deprecated 3.0.0 This property will no longer be accessible on the public access level in next major version.
      */
@@ -97,7 +97,7 @@ class IdBuilder
     {
         return $this->forOffsetItem(
             $type,
-            ltrim(strrchr(strtolower(get_class($type)), '_'), '_')
+            ltrim(strrchr(strtolower(get_class($type)), '_') ?: '', '_')
         );
     }
 
@@ -162,7 +162,7 @@ class IdBuilder
         }
         return sprintf(
             '%02s',
-            base_convert($this->offsetInFile[$file][$string], 10, 36)
+            base_convert((string)$this->offsetInFile[$file][$string], 10, 36)
         );
     }
 }

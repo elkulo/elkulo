@@ -42,6 +42,7 @@
 
 namespace PDepend\Source\AST;
 
+use InvalidArgumentException;
 use PDepend\Source\ASTVisitor\ASTVisitor;
 use PDepend\Source\Tokenizer\Token;
 use PDepend\Util\Cache\CacheDriver;
@@ -296,16 +297,6 @@ class ASTCompilationUnit extends AbstractASTArtifact
     }
 
     /**
-     * ASTVisitor method for node tree traversal.
-     *
-     * @return void
-     */
-    public function accept(ASTVisitor $visitor)
-    {
-        $visitor->visitCompilationUnit($this);
-    }
-
-    /**
      * The magic sleep method will be called by PHP's runtime environment right
      * before it serializes an instance of this class. This method returns an
      * array with those property names that should be serialized.
@@ -364,7 +355,11 @@ class ASTCompilationUnit extends AbstractASTArtifact
      */
     protected function readSource()
     {
-        if ($this->source === null && (file_exists($this->fileName) || strpos($this->fileName, 'php://') === 0)) {
+        if (
+            $this->source === null &&
+            $this->fileName &&
+            (strpos($this->fileName, 'php://') === 0 || file_exists($this->fileName))
+        ) {
             $source = file_get_contents($this->fileName);
 
             $this->source = str_replace(array("\r\n", "\r"), "\n", $source);

@@ -37,7 +37,7 @@ trait PriorityTaggedServiceTrait
      *
      * @return Reference[]
      */
-    private function findAndSortTaggedServices(string|TaggedIteratorArgument $tagName, ContainerBuilder $container): array
+    private function findAndSortTaggedServices(string|TaggedIteratorArgument $tagName, ContainerBuilder $container, array $exclude = []): array
     {
         $indexAttribute = $defaultIndexMethod = $needsIndexes = $defaultPriorityMethod = null;
 
@@ -46,6 +46,7 @@ trait PriorityTaggedServiceTrait
             $defaultIndexMethod = $tagName->getDefaultIndexMethod();
             $needsIndexes = $tagName->needsIndexes();
             $defaultPriorityMethod = $tagName->getDefaultPriorityMethod() ?? 'getDefaultPriority';
+            $exclude = array_merge($exclude, $tagName->getExclude());
             $tagName = $tagName->getTag();
         }
 
@@ -53,6 +54,10 @@ trait PriorityTaggedServiceTrait
         $services = [];
 
         foreach ($container->findTaggedServiceIds($tagName, true) as $serviceId => $attributes) {
+            if (\in_array($serviceId, $exclude, true)) {
+                continue;
+            }
+
             $defaultPriority = null;
             $defaultIndex = null;
             $definition = $container->getDefinition($serviceId);
@@ -68,7 +73,7 @@ trait PriorityTaggedServiceTrait
                 } elseif (null === $defaultPriority && $defaultPriorityMethod && $class) {
                     $defaultPriority = PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultPriorityMethod, $tagName, 'priority', $checkTaggedItem);
                 }
-                $priority = $priority ?? $defaultPriority ?? $defaultPriority = 0;
+                $priority ??= $defaultPriority ??= 0;
 
                 if (null === $indexAttribute && !$defaultIndexMethod && !$needsIndexes) {
                     $services[] = [$priority, ++$i, null, $serviceId, null];
@@ -80,13 +85,13 @@ trait PriorityTaggedServiceTrait
                 } elseif (null === $defaultIndex && $defaultPriorityMethod && $class) {
                     $defaultIndex = PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultIndexMethod ?? 'getDefaultName', $tagName, $indexAttribute, $checkTaggedItem);
                 }
-                $index = $index ?? $defaultIndex ?? $defaultIndex = $serviceId;
+                $index ??= $defaultIndex ??= $serviceId;
 
                 $services[] = [$priority, ++$i, $index, $serviceId, $class];
             }
         }
 
-        uasort($services, static function ($a, $b) { return $b[0] <=> $a[0] ?: $a[1] <=> $b[1]; });
+        uasort($services, static fn ($a, $b) => $b[0] <=> $a[0] ?: $a[1] <=> $b[1]);
 
         $refs = [];
         foreach ($services as [, , $index, $serviceId, $class]) {

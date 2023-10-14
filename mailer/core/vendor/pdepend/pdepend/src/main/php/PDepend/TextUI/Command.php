@@ -174,12 +174,12 @@ class Command
 
         foreach ($options as $option => $value) {
             if (isset($logOptions[$option])) {
-                // Reduce recieved option list
+                // Reduce received option list
                 unset($options[$option]);
                 // Register logger
                 $this->runner->addReportGenerator(substr($option, 2), $value);
             } elseif (isset($analyzerOptions[$option])) {
-                // Reduce recieved option list
+                // Reduce received option list
                 unset($options[$option]);
 
                 if (isset($analyzerOptions[$option]['value']) && is_bool($value)) {
@@ -267,11 +267,15 @@ class Command
             return $result;
         } catch (RuntimeException $e) {
             echo PHP_EOL, PHP_EOL,
-                 'Critical error: ', PHP_EOL,
-                 '=============== ', PHP_EOL,
-                  $e->getMessage(),  PHP_EOL;
+                 'Critical error:', PHP_EOL,
+                 '===============', PHP_EOL,
+                  $e->getMessage(), PHP_EOL;
 
-            Log::debug($e->getTraceAsString());
+            Log::debug($this->getErrorTrace($e));
+
+            for ($previous = $e->getPrevious(); $previous; $previous = $previous->getPrevious()) {
+                Log::debug(PHP_EOL . 'Caused by:' . PHP_EOL . $this->getErrorTrace($previous));
+            }
 
             return $e->getCode();
         }
@@ -312,18 +316,20 @@ class Command
 
         for ($i = 0, $c = count($argv); $i < $c; ++$i) {
             // Is it an ini_set option?
-            if ($argv[$i] === '-d' && isset($argv[$i + 1])) {
-                if (strpos($argv[++$i], '=') === false) {
-                    ini_set($argv[$i], 'on');
+            $arg = (string)$argv[$i];
+            if ($arg === '-d' && isset($argv[$i + 1])) {
+                $arg = (string)$argv[++$i];
+                if (strpos($arg, '=') === false) {
+                    ini_set($arg, 'on');
                 } else {
-                    list($key, $value) = explode('=', $argv[$i]);
+                    list($key, $value) = explode('=', $arg);
 
                     ini_set($key, $value);
                 }
-            } elseif (strpos($argv[$i], '=') === false) {
-                $this->options[$argv[$i]] = true;
+            } elseif (strpos($arg, '=') === false) {
+                $this->options[$arg] = true;
             } else {
-                list($key, $value) = explode('=', $argv[$i]);
+                list($key, $value) = explode('=', $arg);
 
                 $this->options[$key] = $value;
             }
@@ -401,11 +407,12 @@ class Command
     {
         $build = __DIR__ . '/../../../../../build.properties';
 
+        $version = '@package_version@';
         if (file_exists($build)) {
             $data = @parse_ini_file($build);
-            $version = $data['project.version'];
-        } else {
-            $version = '@package_version@';
+            if (is_array($data)) {
+                $version = $data['project.version'];
+            }
         }
 
         echo 'PDepend ', $version, PHP_EOL, PHP_EOL;
@@ -524,7 +531,8 @@ class Command
 
         $last = null;
         foreach ($options as $option => $message) {
-            $current = substr($option, 0, strrpos($option, '-'));
+            $pos = strrpos($option, '-');
+            $current = substr($option, 0, $pos === false ? null : $pos);
             if ($last !== null && $last !== $current) {
                 echo PHP_EOL;
             }
@@ -626,7 +634,8 @@ class Command
      */
     public static function main()
     {
-        $command = new Command();
+        $command = new self();
+
         return $command->run();
     }
 
@@ -647,5 +656,17 @@ class Command
             printf('; Memory: %4.2fMb', $memory);
         }
         echo PHP_EOL;
+    }
+
+    /**
+     * @param Exception|\Throwable $exception
+     *
+     * @return string
+     */
+    private function getErrorTrace($exception)
+    {
+        return get_class($exception) . '(' . $exception->getMessage() . ')' . PHP_EOL .
+            '## ' . $exception->getFile() .'(' . $exception->getLine() . ')' . PHP_EOL .
+            $exception->getTraceAsString();
     }
 }

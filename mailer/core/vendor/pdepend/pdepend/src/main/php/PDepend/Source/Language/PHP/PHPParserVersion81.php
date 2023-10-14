@@ -49,7 +49,6 @@ use PDepend\Source\AST\ASTEnum;
 use PDepend\Source\AST\ASTIntersectionType;
 use PDepend\Source\AST\ASTScalarType;
 use PDepend\Source\AST\ASTType;
-use PDepend\Source\AST\ASTUnionType;
 use PDepend\Source\AST\ASTValue;
 use PDepend\Source\AST\State;
 use PDepend\Source\Parser\ParserException;
@@ -103,8 +102,6 @@ abstract class PHPParserVersion81 extends PHPParserVersion80
      * Parses a scalar type hint or a callable type hint.
      *
      * @param string $image
-     *
-     * @return ASTType
      */
     protected function parseScalarOrCallableTypeHint($image)
     {
@@ -120,14 +117,9 @@ abstract class PHPParserVersion81 extends PHPParserVersion80
      */
     protected function parseConstructFormalParameterModifiers()
     {
-        $modifier = parent::parseConstructFormalParameterModifiers();
-
-        if ($this->tokenizer->peek() === Tokens::T_READONLY) {
-            $modifier |= State::IS_READONLY;
-            $this->tokenStack->add($this->tokenizer->next());
-        }
-
-        return $modifier;
+        return $this->checkReadonlyToken()
+            | parent::parseConstructFormalParameterModifiers()
+            | $this->checkReadonlyToken();
     }
 
     /**
@@ -179,8 +171,7 @@ abstract class PHPParserVersion81 extends PHPParserVersion80
         $token = $this->tokenizer->currentToken();
         $types = array($firstType);
 
-        while ($this->tokenizer->peek() === Tokens::T_BITWISE_AND && $this->tokenizer->peekNext() !== Tokens::T_VARIABLE) {
-            $this->tokenStack->add($this->tokenizer->next());
+        while ($this->tokenizer->peekNext() !== Tokens::T_VARIABLE && $this->addTokenToStackIfType(Tokens::T_BITWISE_AND)) {
             $types[] = $this->parseSingleTypeHint();
         }
 
@@ -239,5 +230,17 @@ abstract class PHPParserVersion81 extends PHPParserVersion80
         }
 
         return $arguments;
+    }
+
+    /**
+     * @return int
+     */
+    private function checkReadonlyToken()
+    {
+        if ($this->addTokenToStackIfType(Tokens::T_READONLY)) {
+            return State::IS_READONLY;
+        }
+
+        return 0;
     }
 }

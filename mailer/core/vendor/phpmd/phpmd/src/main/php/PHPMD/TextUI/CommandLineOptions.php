@@ -19,14 +19,18 @@ namespace PHPMD\TextUI;
 
 use InvalidArgumentException;
 use PHPMD\Baseline\BaselineMode;
+use PHPMD\Cache\Model\ResultCacheStrategy;
+use PHPMD\Console\OutputInterface;
 use PHPMD\Renderer\AnsiRenderer;
+use PHPMD\Renderer\CheckStyleRenderer;
 use PHPMD\Renderer\GitHubRenderer;
 use PHPMD\Renderer\GitLabRenderer;
 use PHPMD\Renderer\HTMLRenderer;
 use PHPMD\Renderer\JSONRenderer;
+use PHPMD\Renderer\Option\Color;
+use PHPMD\Renderer\Option\Verbose;
 use PHPMD\Renderer\SARIFRenderer;
 use PHPMD\Renderer\TextRenderer;
-use PHPMD\Renderer\CheckStyleRenderer;
 use PHPMD\Renderer\XMLRenderer;
 use PHPMD\Rule;
 
@@ -79,11 +83,25 @@ class CommandLineOptions
     protected $reportFile;
 
     /**
+     * An optional filename to collect errors.
+     *
+     * @var string
+     */
+    protected $errorFile;
+
+    /**
      * Additional report files.
      *
      * @var array
      */
     protected $reportFiles = array();
+
+    /**
+     * List of deprecations.
+     *
+     * @var array
+     */
+    protected $deprecations = array();
 
     /**
      * A ruleset filename or a comma-separated string of ruleset filenames.
@@ -130,6 +148,9 @@ class CommandLineOptions
      */
     protected $strict = false;
 
+    /** @var int */
+    protected $verbosity = OutputInterface::VERBOSITY_NORMAL;
+
     /**
      * Should PHPMD exit without error code even if error is found?
      *
@@ -166,6 +187,37 @@ class CommandLineOptions
     protected $baselineFile;
 
     /**
+     * Should PHPMD read or write the result cache state from the cache file
+     * @var bool
+     */
+    protected $cacheEnabled = false;
+
+    /**
+     * If set the path to read and write the result cache state from and to.
+     * @var string|null
+     */
+    protected $cacheFile;
+
+    /**
+     * If set determine the cache strategy. Either `content` or `timestamp`. Defaults to `content`.
+     * @var string|null
+     */
+    protected $cacheStrategy;
+
+    /**
+     * Either the output should be colored.
+     *
+     * @var bool
+     */
+    protected $colored = false;
+
+    /**
+     * Specify how many extra lines are added to a code snippet
+     * @var int|null
+     */
+    protected $extraLineInExcerpt;
+
+    /**
      * Constructs a new command line options instance.
      *
      * @param string[] $args
@@ -182,6 +234,16 @@ class CommandLineOptions
         $arguments = array();
         while (($arg = array_shift($args)) !== null) {
             switch ($arg) {
+                case '--verbose':
+                case '-v':
+                    $this->verbosity = OutputInterface::VERBOSITY_VERBOSE;
+                    break;
+                case '-vv':
+                    $this->verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE;
+                    break;
+                case '-vvv':
+                    $this->verbosity = OutputInterface::VERBOSITY_DEBUG;
+                    break;
                 case '--min-priority':
                 case '--minimum-priority':
                 case '--minimumpriority':
@@ -195,6 +257,10 @@ class CommandLineOptions
                 case '--report-file':
                 case '--reportfile':
                     $this->reportFile = array_shift($args);
+                    break;
+                case '--error-file':
+                case '--errorfile':
+                    $this->errorFile = array_shift($args);
                     break;
                 case '--input-file':
                 case '--inputfile':
@@ -219,6 +285,9 @@ class CommandLineOptions
                 case '--exclude':
                     $this->ignore = array_shift($args);
                     break;
+                case '--color':
+                    $this->colored = true;
+                    break;
                 case '--version':
                     $this->version = true;
 
@@ -238,6 +307,15 @@ class CommandLineOptions
                 case '--baseline-file':
                     $this->baselineFile = array_shift($args);
                     break;
+                case '--cache':
+                    $this->cacheEnabled = true;
+                    break;
+                case '--cache-file':
+                    $this->cacheFile = array_shift($args);
+                    break;
+                case '--cache-strategy':
+                    $this->cacheStrategy = array_shift($args);
+                    break;
                 case '--ignore-errors-on-exit':
                     $this->ignoreErrorsOnExit = true;
                     break;
@@ -255,6 +333,9 @@ class CommandLineOptions
                     preg_match('(^\-\-reportfile\-(checkstyle|github|gitlab|html|json|sarif|text|xml)$)', $arg, $match);
                     $this->reportFiles[$match[1]] = array_shift($args);
                     break;
+                case '--extra-line-in-excerpt':
+                    $this->extraLineInExcerpt = (int)array_shift($args);
+                    break;
                 default:
                     $arguments[] = $arg;
                     break;
@@ -265,9 +346,13 @@ class CommandLineOptions
             throw new InvalidArgumentException($this->usage(), self::INPUT_ERROR);
         }
 
-        $this->inputPath    = (string)array_shift($arguments);
-        $this->reportFormat = (string)array_shift($arguments);
-        $this->ruleSets     = (string)array_shift($arguments);
+        $this->ruleSets     = (string)array_pop($arguments);
+        $this->reportFormat = (string)array_pop($arguments);
+        $this->inputPath    = implode(',', $arguments);
+
+        if ($this->inputPath === '-') {
+            $this->inputPath = 'php://stdin';
+        }
     }
 
     /**
@@ -299,6 +384,27 @@ class CommandLineOptions
     public function getReportFile()
     {
         return $this->reportFile;
+    }
+
+    /**
+     * Returns the output filename for the errors or <b>null</b> when
+     * the report should be displayed in STDERR.
+     *
+     * @return string
+     */
+    public function getErrorFile()
+    {
+        return $this->errorFile;
+    }
+
+    /**
+     * Return the list of deprecations raised when parsing options.
+     *
+     * @return list<string>
+     */
+    public function getDeprecations()
+    {
+        return $this->deprecations;
     }
 
     /**
@@ -397,6 +503,14 @@ class CommandLineOptions
     }
 
     /**
+     * @return int
+     */
+    public function getVerbosity()
+    {
+        return $this->verbosity;
+    }
+
+    /**
      * Should the current violations be baselined
      *
      * @return string
@@ -414,6 +528,41 @@ class CommandLineOptions
     public function baselineFile()
     {
         return $this->baselineFile;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCacheEnabled()
+    {
+        return $this->cacheEnabled;
+    }
+
+    /**
+     * The filepath to the result cache state file
+     *
+     * @return string
+     */
+    public function cacheFile()
+    {
+        return $this->cacheFile === null ? '.phpmd.result-cache.php' : $this->cacheFile;
+    }
+
+    /**
+     * The caching strategy to determine if a file should be (re)inspected. Either
+     * `content` or last modified `timestamp` based.
+     *
+     * @return string
+     */
+    public function cacheStrategy()
+    {
+        switch ($this->cacheStrategy) {
+            case ResultCacheStrategy::CONTENT:
+            case ResultCacheStrategy::TIMESTAMP:
+                return $this->cacheStrategy;
+            default:
+                return ResultCacheStrategy::CONTENT;
+        }
     }
 
     /**
@@ -438,6 +587,15 @@ class CommandLineOptions
     }
 
     /**
+     * Specify how many extra lines are added to a code snippet
+     *
+     * @return int|null
+     */
+    public function extraLineInExcerpt()
+    {
+        return $this->extraLineInExcerpt;
+    }
+    /**
      * Creates a report renderer instance based on the user's command line
      * argument.
      *
@@ -454,6 +612,26 @@ class CommandLineOptions
      * @throws InvalidArgumentException When the specified renderer does not exist.
      */
     public function createRenderer($reportFormat = null)
+    {
+        $renderer = $this->createRendererWithoutOptions($reportFormat);
+
+        if ($renderer instanceof Verbose) {
+            $renderer->setVerbosityLevel($this->verbosity);
+        }
+
+        if ($renderer instanceof Color) {
+            $renderer->setColored($this->colored);
+        }
+
+        return $renderer;
+    }
+
+    /**
+     * @param string $reportFormat
+     * @return \PHPMD\AbstractRenderer
+     * @throws InvalidArgumentException When the specified renderer does not exist.
+     */
+    protected function createRendererWithoutOptions($reportFormat = null)
     {
         $reportFormat = $reportFormat ?: $this->reportFormat;
 
@@ -526,7 +704,7 @@ class CommandLineOptions
      */
     protected function createHtmlRenderer()
     {
-        return new HTMLRenderer();
+        return new HTMLRenderer($this->extraLineInExcerpt);
     }
 
     /**
@@ -538,7 +716,7 @@ class CommandLineOptions
     }
 
     /**
-     * @return \PHPMD\Renderer\JSONRenderer
+     * @return \PHPMD\Renderer\CheckStyleRenderer
      */
     protected function createCheckStyleRenderer()
     {
@@ -598,21 +776,26 @@ class CommandLineOptions
     public function usage()
     {
         $availableRenderers = $this->getListOfAvailableRenderers();
+        $noRenderers = ($availableRenderers === null);
 
         return 'Mandatory arguments:' . \PHP_EOL .
             '1) A php source code filename or directory. Can be a comma-' .
-            'separated string' . \PHP_EOL .
+            'separated string, glob pattern, or "-" to scan stdin' . \PHP_EOL .
             '2) A report format' . \PHP_EOL .
             '3) A ruleset filename or a comma-separated string of ruleset' .
             'filenames' . \PHP_EOL . \PHP_EOL .
             'Example: phpmd /path/to/source format ruleset' . \PHP_EOL . \PHP_EOL .
-            'Available formats: ' . $availableRenderers . '.' . \PHP_EOL .
+            ($noRenderers ? 'No available formats' : 'Available formats: ' . $availableRenderers) . '.' . \PHP_EOL .
             'Available rulesets: ' . implode(', ', $this->availableRuleSets) . '.' . \PHP_EOL . \PHP_EOL .
             'Optional arguments that may be put after the mandatory arguments:' .
             \PHP_EOL .
-            '--minimumpriority: rule priority threshold; rules with lower ' .
+            '--verbose, -v, -vv, -vvv: Show debug information.' . \PHP_EOL .
+            '--minimum-priority: rule priority threshold; rules with lower ' .
             'priority than this will not be used' . \PHP_EOL .
-            '--reportfile: send report output to a file; default to STDOUT' .
+            '--report-file: send report output to a file; default to STDOUT' .
+            \PHP_EOL .
+            '--error-file: send errors (other than reported violations) ' .
+            'output to a file; default to STDERR' .
             \PHP_EOL .
             '--suffixes: comma-separated string of valid source code ' .
             'filename extensions, e.g. php,phtml' . \PHP_EOL .
@@ -625,16 +808,26 @@ class CommandLineOptions
             'even on error' . \PHP_EOL .
             '--ignore-violations-on-exit: will exit with a zero code, ' .
             'even if any violations are found' . \PHP_EOL .
+            '--cache: will enable the result cache.' . \PHP_EOL .
+            '--cache-file: instead of the default .phpmd.result-cache.php' .
+            ' will use this file as result cache file path.' . \PHP_EOL .
+            '--cache-strategy: sets the caching strategy to determine if' .
+            ' a file is still fresh. Either `content` to base it on the ' .
+            'file contents, or `timestamp` to base it on the file modified ' .
+            'timestamp' . \PHP_EOL .
             '--generate-baseline: will generate a phpmd.baseline.xml next ' .
             'to the first ruleset file location' . \PHP_EOL .
             '--update-baseline: will remove any non-existing violations from the phpmd.baseline.xml' . \PHP_EOL .
-            '--baseline-file: a custom location of the baseline file' . \PHP_EOL;
+            '--baseline-file: a custom location of the baseline file' . \PHP_EOL .
+            '--color: enable color in output' . \PHP_EOL .
+            '--extra-line-in-excerpt: Specify how many extra lines are added ' .
+            'to a code snippet in html format' . \PHP_EOL;
     }
 
     /**
      * Get a list of available renderers
      *
-     * @return string The list of renderers found.
+     * @return string|null The list of renderers found separated by comma, or null if none.
      */
     protected function getListOfAvailableRenderers()
     {
@@ -650,11 +843,7 @@ class CommandLineOptions
 
         sort($renderers);
 
-        if (count($renderers) > 1) {
-            return implode(', ', $renderers);
-        }
-
-        return array_pop($renderers);
+        return implode(', ', $renderers) ?: null;
     }
 
     /**
@@ -666,13 +855,11 @@ class CommandLineOptions
      */
     protected function logDeprecated($deprecatedName, $newName)
     {
-        $message = sprintf(
+        $this->deprecations[] = sprintf(
             'The --%s option is deprecated, please use --%s instead.',
             $deprecatedName,
             $newName
         );
-
-        fwrite(STDERR, $message . PHP_EOL . PHP_EOL);
     }
 
     /**

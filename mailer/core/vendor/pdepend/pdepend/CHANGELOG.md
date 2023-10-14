@@ -1,3 +1,50 @@
+pdepend-2.15.1 (2023/09/28)
+==========================
+
+- Fixed [\#684](https://github.com/pdepend/pdepend/pull/684): Fix [\#682](https://github.com/pdepend/pdepend/issues/682) Re-allow empty compilation unit
+- Changed [\#684](https://github.com/pdepend/pdepend/pull/684): Show error full stack trace when debug is on
+
+
+pdepend-2.15.0 (2023/09/23)
+==========================
+
+- Fixed [\#669](https://github.com/pdepend/pdepend/pull/669): Fix Halstead formula.
+- Fixed [\#673](https://github.com/pdepend/pdepend/pull/673): Fix [\#665](https://github.com/pdepend/pdepend/issues/665) Allow readonly before public/protected/private.
+- Changed [\#670](https://github.com/pdepend/pdepend/pull/670): Upgrade the GitHub Actions from V2 to V3.
+- Changed [\#671](https://github.com/pdepend/pdepend/pull/671): Update PHPStan to 1.10.25.
+- Changed [\#672](https://github.com/pdepend/pdepend/pull/672) and [\#676](https://github.com/pdepend/pdepend/pull/676): Resolve edge cases cought by PHPStan level 7.
+- Changed [\#675](https://github.com/pdepend/pdepend/pull/675): Run the codecoverage with PHP 8.2 and use xDebug 3.
+- Changed [\#677](https://github.com/pdepend/pdepend/pull/677) and [\#678](https://github.com/pdepend/pdepend/pull/678): Add more tests.
+
+
+pdepend-2.14.0 (2023/05/26)
+==========================
+
+
+- Added [\#663](https://github.com/pdepend/pdepend/pull/663): Added, sign the phar files.
+- Added [\#657](https://github.com/pdepend/pdepend/pull/657): Added keywords to composer.json.
+- Fixed [\#656](https://github.com/pdepend/pdepend/pull/656): Fix [\#635](https://github.com/pdepend/pdepend/issues/635), [\#650](https://github.com/pdepend/pdepend/issues/650) Base enum label validity on constant name rule.
+- Fixed [\#661](https://github.com/pdepend/pdepend/pull/661): Fix [\#639](https://github.com/pdepend/pdepend/issues/639) Handle extra parenthis for functions.
+
+
+pdepend-2.13.0 (2023/02/28)
+==========================
+
+- Added [\#636](https://github.com/pdepend/pdepend/pull/636): Add support for NULL, DEFAULT and NEW as enum case.
+- Added [\#651](https://github.com/pdepend/pdepend/pull/651): Add a follow on mastodon link to the footer on the website.
+- Fixed [\#633](https://github.com/pdepend/pdepend/pull/633): Fix parsing for new with parentheses.
+- Fixed [\#641](https://github.com/pdepend/pdepend/pull/641): Improve UTF8 encoding process.
+- Fixed [\#637](https://github.com/pdepend/pdepend/pull/637): Prevent the use of a not set id value in the AbstractASTType and AbstractASTCallable.
+- Fixed [\#642](https://github.com/pdepend/pdepend/pull/642): Fix [\#638](https://github.com/pdepend/pdepend/issue/638) Unexpected Token with double class modifiers.
+- Changed [\#644](https://github.com/pdepend/pdepend/pull/644): Correct collection of Enum and Intersection type information during analysis.
+- Changed [\#646](https://github.com/pdepend/pdepend/pull/646): Numeric-strings.
+- Changed [\#647](https://github.com/pdepend/pdepend/pull/647): Phpstan corrections.
+- Changed [\#648](https://github.com/pdepend/pdepend/pull/648): Correct type signatures.
+- Changed [\#645](https://github.com/pdepend/pdepend/pull/645): Correct name space collection types (bump to PHPStan level 5).
+- Changed [\#649](https://github.com/pdepend/pdepend/pull/649): Add missing type information.
+- Changed [\#654](https://github.com/pdepend/pdepend/pull/654): Increase PHPStan to level 6.
+
+
 pdepend-2.12.1 (2022/09/08)
 ==========================
 

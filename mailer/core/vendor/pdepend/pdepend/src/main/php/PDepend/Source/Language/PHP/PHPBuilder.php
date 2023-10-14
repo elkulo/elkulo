@@ -2418,7 +2418,7 @@ class PHPBuilder implements Builder
      *
      * @template T of AbstractASTType
      *
-     * @param array<string, array<string, array<string, T>>> $instances
+     * @param array<string, array<string, array<int, T>>> $instances
      * @param string                                         $qualifiedName
      *
      * @return T|null
@@ -2497,9 +2497,7 @@ class PHPBuilder implements Builder
         foreach ($originalTypes as $typeName => $namespaces) {
             foreach ($namespaces as $namespaceName => $types) {
                 foreach ($types as $index => $type) {
-                    if (is_object($type->getNamespace())) {
-                        $copiedTypes[$typeName][$namespaceName][$index] = $type;
-                    }
+                    $copiedTypes[$typeName][$namespaceName][$index] = $type;
                 }
             }
         }
