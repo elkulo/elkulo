@@ -46,6 +46,7 @@ const App = () => {
           >
             <Button
               variant="contained"
+              size='large'
               startIcon={<GitHubIcon />}
               href="https://elkulo.github.io/"
               sx={{
@@ -86,7 +87,7 @@ const App = () => {
             bottom: 0,
             left: 0,
             width: '100%',
-            padding: '0 0 3rem',
+            padding: '0 0 2rem',
             textAlign: 'center',
           }}
         >
