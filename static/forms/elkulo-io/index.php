@@ -10,7 +10,7 @@ declare(strict_types=1);
  * 変更がない場合はコメントアウトを解除する必要はありません。
  */
 // 任意の .env がある場所までのパス
-define('ENV_DIR_PATH', __DIR__ . '/../../env');
+define('ENV_DIR_PATH', __DIR__ . '/../../../env');
 
 // 任意の .env.example の example 部分を変更可能
 define('ENV_IDENTIFY', 'elkulo-io');
@@ -50,7 +50,7 @@ define('TEMPLATES_DIR_PATH', __DIR__ . '/templates/');
  * 例）https://example.com/path/to/mailer-alias/ なら "/path/to/mailer-alias"
  */
 // 任意のディレクトリ名
-define('BASE_URL_PATH', '/forms');
+define('BASE_URL_PATH', '/forms/elkulo-io');
 
 /**
  * 任意なファイル名
@@ -59,4 +59,4 @@ define('BASE_URL_PATH', '/forms');
  * 本プログラム直下の bootstrap.php ファイルを require_once で読み込めば、任意のディレクトリやファイル名で実行ができます。
  */
 // Mailerプログラムの bootstrap.php を指定
-require_once __DIR__ . '/../../mailer/bootstrap.php';
+require_once __DIR__ . '/../../../mailer/bootstrap.php';
