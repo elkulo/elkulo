@@ -20,7 +20,7 @@ const AboutContent = ({ children }) => {
         }}
       >
         <img
-          src="/assets/avatar.png"
+          src="/assets/images/avatar.png"
           alt="el.kulo"
           width="100%"
           height="100%"

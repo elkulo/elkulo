@@ -6,13 +6,16 @@ import muiDialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import { indigo, blueGrey } from '@mui/material/colors';
+import { blueGrey } from '@mui/material/colors';
 import Styled from '@emotion/styled';
 import $readme from '@docs/readme/README.md';
 
 const Dialog = Styled(muiDialog)`
   .MuiBackdrop-root {
-    background: rgba(255,255,255,1);
+    background: rgba(0,0,0,0.9);
+  }
+  .MuiDialogContent-root {
+    background: #0d1117;
   }
 
   .MuiPaper-root.MuiDialog-paperScrollBody {
@@ -38,22 +41,16 @@ const CloseButton = Styled(IconButton)`
   position: fixed;
   right: 0.5rem;
   top: 0.5rem;
-  color: ${indigo[100]};
+  color: #fff;
   background: ${blueGrey[900]};
   transition: all 200ms ease-in;
 
   @media (min-width: 600px) {
     position: absolute;
-    background: #fff;
   }
 
   &:hover {
     background: ${blueGrey[700]};
-
-    @media (min-width: 600px) {
-      color: ${indigo[300]};
-      background: #fff;
-    }
   }
 
   .MuiSvgIcon-root {

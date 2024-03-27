@@ -1,12 +1,11 @@
 import React from 'react';
-import MailIcon from '@mui/icons-material/Send';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ProfileModal from '../components/ProfileModal';
 import AboutContent from '../components/AboutContent';
-import SiteFooter from '../components/SiteFooter';
-import { blue, blueGrey } from '@mui/material/colors';
-import 'github-markdown-css/github-markdown-light.css';
+import { lime, amber } from '@mui/material/colors';
+import 'github-markdown-css/github-markdown.css';
 import './App.css';
 
 const App = () => {
@@ -25,7 +24,7 @@ const App = () => {
   }, [isModalVisible]);
 
   return (
-    <Box className="app" sx={{ background: '#f8f9fa' }}>
+    <Box className="app">
       <Box
         component="main"
         sx={{
@@ -46,42 +45,55 @@ const App = () => {
             }}
           >
             <Button
-              variant="outlined"
-              startIcon={<MailIcon />}
-              size="large"
-              href="/forms/elkulo-me/post"
+              variant="contained"
+              startIcon={<GitHubIcon />}
+              href="https://elkulo.github.io/"
               sx={{
                 paddingLeft: '3rem',
                 paddingRight: '3rem',
-                borderColor: 'currentColor',
-                color: blueGrey[700],
+                backgroundColor: lime[400],
 
                 '&:hover': {
-                  color: blue[800],
+                  backgroundColor: lime[600],
                 },
               }}
             >
               <span style={{ display: 'inline-block', paddingTop: '0.25em' }}>
-                CONTACT
+                ポートフォリオ
               </span>
             </Button>
           </Box>
           <Button
             onClick={handleClickOpen}
+            variant="text"
             sx={{
               paddingLeft: '3rem',
               paddingRight: '3rem',
-              color: blueGrey[700],
+              color: amber[200],
 
               '&:hover': {
-                color: blue[800],
+                color: amber[200],
               },
             }}
           >
             私について
           </Button>
         </AboutContent>
-        <SiteFooter />
+        <Box
+          component="footer"
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            padding: '0 0 3rem',
+            textAlign: 'center',
+          }}
+        >
+          <Box className="copyright" sx={{ marginTop: '0.5rem' }}>
+            &copy; Me | el.kulo
+          </Box>
+        </Box>
       </Box>
       <ProfileModal
         emits={{
