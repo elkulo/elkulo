@@ -7,7 +7,7 @@ const AboutContent = ({ children }) => {
       sx={{
         maxWidth: '480px',
         padding: '0 0 3rem',
-        margin: '0 0 6rem',
+        margin: '0 0 5rem',
       }}
     >
       <Box
