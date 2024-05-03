@@ -1292,10 +1292,11 @@ abstract class AbstractPHPParser
             );
         }
 
+        $docComment = $this->docComment;
         $callable = $this->parseFunctionDeclaration();
         $this->compilationUnit->addChild($callable);
 
-        $callable->setComment($this->docComment);
+        $callable->setComment($docComment);
         $callable->setTokens($this->tokenStack->pop());
         $this->prepareCallable($callable);
 
@@ -3326,7 +3327,7 @@ abstract class AbstractPHPParser
                     $expressions[] = $expr;
                     break;
                 case Tokens::T_YIELD:
-                    $expressions[] = $this->parseYield();
+                    $expressions[] = $this->parseYield(false);
                     break;
                 default:
                     $expressions[] = $this->parseOptionalExpressionForVersion();
@@ -6705,7 +6706,7 @@ abstract class AbstractPHPParser
 
                 return $class;
             case Tokens::T_YIELD:
-                return $this->parseYield();
+                return $this->parseYield(true);
         }
 
         $this->tokenStack->push();
@@ -7185,12 +7186,23 @@ abstract class AbstractPHPParser
             $this->consumeToken(Tokens::T_COMMA);
         } while ($tokenType !== Tokenizer::T_EOF);
 
-
         $definition = $this->setNodePositionsAndReturn($definition);
 
         $this->consumeToken(Tokens::T_SEMICOLON);
 
         return $definition;
+    }
+
+    /**
+     * Constant cannot be typed before PHP 8.3.
+     *
+     * @return ASTConstantDeclarator
+     *
+     * @since  1.16.0
+     */
+    protected function parseTypedConstantDeclarator()
+    {
+        throw $this->getUnexpectedNextTokenException();
     }
 
     /**
@@ -7234,9 +7246,15 @@ abstract class AbstractPHPParser
         $this->consumeComments();
         $this->tokenStack->push();
 
+        $nextToken = $this->tokenizer->peekNext();
+
+        if ($this->isConstantName($nextToken)) {
+            return $this->parseTypedConstantDeclarator();
+        }
+
         $tokenType = $this->tokenizer->peek();
 
-        if (false === $this->isConstantName($tokenType)) {
+        if (!$this->isConstantName($tokenType)) {
             throw $this->getUnexpectedNextTokenException();
         }
 
@@ -7890,9 +7908,12 @@ abstract class AbstractPHPParser
     /**
      * This method parses a yield-statement node.
      *
+     * @param bool $standalone Either yield is the statement (true), or nested in
+     *                         an expression (false).
+     *
      * @return ASTYieldStatement
      */
-    private function parseYield()
+    private function parseYield($standalone)
     {
         $this->tokenStack->push();
 
@@ -7914,11 +7935,9 @@ abstract class AbstractPHPParser
 
         $this->consumeComments();
 
-        if (Tokens::T_PARENTHESIS_CLOSE === $this->tokenizer->peek()) {
-            return $this->setNodePositionsAndReturn($yield);
+        if ($standalone) {
+            $this->parseStatementTermination();
         }
-
-        $this->parseStatementTermination();
 
         return $this->setNodePositionsAndReturn($yield);
     }
@@ -8215,8 +8234,8 @@ abstract class AbstractPHPParser
                 return bindec(substr($numberRepresentation, 2));
 
             default:
-                if (substr($numberRepresentation, 0, 1) === '0') {
-                    return octdec(preg_replace('/^0+(oO)?/', '', $numberRepresentation));
+                if (preg_match('/^0+[oO]?(\d+)$/', $numberRepresentation, $match)) {
+                    return octdec($match[1]);
                 }
 
                 return $numberRepresentation;

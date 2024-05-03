@@ -16,7 +16,6 @@ namespace JanGregor\Prophecy\Type\Prophet;
 use PhpParser\Node;
 use PHPStan\Analyser;
 use PHPStan\Reflection;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type;
 use Prophecy\Prophecy;
 
@@ -65,10 +64,6 @@ final class ProphesizeDynamicReturnTypeExtension implements Type\DynamicMethodRe
         }
 
         $className = $argumentType->getValue();
-
-        if (!$returnType instanceof Type\TypeWithClassName) {
-            throw new ShouldNotHappenException();
-        }
 
         if ('static' === $className) {
             return $returnType;

@@ -21,7 +21,7 @@ final class GeneratedConfig
         0 => 'extension.neon',
       ),
     ),
-    'version' => '1.0.0',
+    'version' => '1.0.2',
   ),
   'nesbot/carbon' => 
   array (
@@ -34,7 +34,7 @@ final class GeneratedConfig
         0 => 'extension.neon',
       ),
     ),
-    'version' => '2.71.0',
+    'version' => '2.72.3',
   ),
 );
 

@@ -1,3 +1,24 @@
+pdepend-2.16.2 (2023/12/17)
+==========================
+
+- Fixed [#705](https://github.com/pdepend/pdepend/pull/705): Fix throw-expression parsing inside array access
+
+pdepend-2.16.1 (2023/12/10)
+==========================
+
+- Fixed [#699](https://github.com/pdepend/pdepend/pull/699): Fix Symfony 7 compatibility
+
+pdepend-2.16.0 (2023/11/29)
+==========================
+
+- Added [#692](https://github.com/pdepend/pdepend/pull/692) PHP 8.3 Syntax
+- Added [#686](https://github.com/pdepend/pdepend/pull/686) Allow Symfony 7
+- Fixed [#691](https://github.com/pdepend/pdepend/pull/691) Float parsing for number starting with 0.
+- Fixed [#689](https://github.com/pdepend/pdepend/pull/689) Handle conversion to/detection of UTF-8 encoding using either mbstring PHP extension or the polyfill provided by Symfony
+- Fixed [phpmd/phpmd#914](https://github.com/pdepend/pdepend/pull/687) Parsing the correct comment for method doc-block (Allow correct SuppressWarnings annotation handling on PHPMD)
+- Fixed [phpmd/phpmd#804](https://github.com/pdepend/pdepend/pull/694) Handle yield termination depending on context
+
+
 pdepend-2.15.1 (2023/09/28)
 ==========================
 
@@ -33,7 +54,7 @@ pdepend-2.13.0 (2023/02/28)
 - Added [\#636](https://github.com/pdepend/pdepend/pull/636): Add support for NULL, DEFAULT and NEW as enum case.
 - Added [\#651](https://github.com/pdepend/pdepend/pull/651): Add a follow on mastodon link to the footer on the website.
 - Fixed [\#633](https://github.com/pdepend/pdepend/pull/633): Fix parsing for new with parentheses.
-- Fixed [\#641](https://github.com/pdepend/pdepend/pull/641): Improve UTF8 encoding process.
+- Fixed [\#641](https://github.com/pdepend/pdepend/pull/641): Improve UTF-8 encoding process.
 - Fixed [\#637](https://github.com/pdepend/pdepend/pull/637): Prevent the use of a not set id value in the AbstractASTType and AbstractASTCallable.
 - Fixed [\#642](https://github.com/pdepend/pdepend/pull/642): Fix [\#638](https://github.com/pdepend/pdepend/issue/638) Unexpected Token with double class modifiers.
 - Changed [\#644](https://github.com/pdepend/pdepend/pull/644): Correct collection of Enum and Intersection type information during analysis.
