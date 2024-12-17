@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGFM from 'remark-gfm';
@@ -63,12 +63,12 @@ const CloseButton = Styled(IconButton)`
 `;
 
 const ProfileModal = ({ emits }) => {
-  const [getEntry, setEntry] = React.useState('Now Loading...');
+  const [getEntry, setEntry] = useState('Now Loading...');
   const { modalEmit } = emits;
 
   const handleClose = () => modalEmit.set(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(encodeURI($readme), {
         responseType: 'text',
