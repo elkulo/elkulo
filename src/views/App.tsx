@@ -18,7 +18,7 @@ const App = () => {
     if (isModalVisible) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
-        descriptionElement.focus();
+        //descriptionElement.focus();
       }
     }
   }, [isModalVisible]);
@@ -100,7 +100,7 @@ const App = () => {
         emits={{
           modalEmit: {
             get: isModalVisible,
-            set: (_v) => setModalVisible(_v),
+            set: (_v: boolean) => setModalVisible(_v),
           },
         }}
       />

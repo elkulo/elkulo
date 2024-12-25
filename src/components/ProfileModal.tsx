@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGFM from 'remark-gfm';
 import muiDialog from '@mui/material/Dialog';
@@ -62,28 +61,22 @@ const CloseButton = Styled(IconButton)`
   }
 `;
 
-const ProfileModal = ({ emits }) => {
+type propType = {
+  emits: {
+    modalEmit: {
+      get: boolean,
+      set: (is: boolean) => void,
+    }
+  }
+};
+
+const ProfileModal = ({ emits } : propType) => {
   const [getEntry, setEntry] = useState('Now Loading...');
   const { modalEmit } = emits;
 
   const handleClose = () => modalEmit.set(false);
 
-  useEffect(() => {
-    axios
-      .get(encodeURI($readme), {
-        responseType: 'text',
-        headers: { Accept: 'text/plain' },
-      })
-      .then(({ data }) => {
-        setEntry(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          // console.debug(error.response);
-        }
-        setEntry(`# 404 Not Found.\n This content failed to load.`);
-      });
-  }, [modalEmit.get]);
+  useEffect(() => setEntry($readme), [modalEmit.get]);
 
   return (
     <Dialog

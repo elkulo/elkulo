@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
+import { ReactNode } from 'react';
 
-const AboutContent = ({ children }) => {
+const AboutContent = ({ children } : { children:ReactNode }) => {
   return (
     <Box
       component="article"
