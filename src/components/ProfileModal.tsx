@@ -64,13 +64,13 @@ const CloseButton = Styled(IconButton)`
 type propType = {
   emits: {
     modalEmit: {
-      get: boolean,
-      set: (is: boolean) => void,
-    }
-  }
+      get: boolean;
+      set: (is: boolean) => void;
+    };
+  };
 };
 
-const ProfileModal = ({ emits } : propType) => {
+const ProfileModal = ({ emits }: propType) => {
   const [getEntry, setEntry] = useState('Now Loading...');
   const { modalEmit } = emits;
 
