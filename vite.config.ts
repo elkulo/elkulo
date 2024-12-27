@@ -7,6 +7,7 @@ export default defineConfig({
   publicDir: 'static',
   build: {
     outDir: 'public',
+    minify: 'terser',
   },
   plugins: [
     react(),
