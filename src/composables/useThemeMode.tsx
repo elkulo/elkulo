@@ -1,5 +1,6 @@
+import type { PaletteMode } from '@mui/material/styles';
 import { createContext, useMemo, useState, useEffect } from 'react';
-import { createTheme, PaletteMode } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 export const ThemeModeContext = createContext({ toggle: () => {} });
 
