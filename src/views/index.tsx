@@ -1,20 +1,24 @@
-import React from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ProfileModal from '../components/ProfileModal';
 import AboutContent from '../components/AboutContent';
-import { lime, amber } from '@mui/material/colors';
+import { ThemeModeContext } from '../composables/useThemeMode';
 import 'github-markdown-css/github-markdown.css';
-import './App.css';
+import styles from './index.module.scss';
 
-const App = () => {
-  const [isModalVisible, setModalVisible] = React.useState(false);
+const Index = () => {
+  const { palette } = useTheme();
+  const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleClickOpen = () => setModalVisible(true);
+  const clickModalOpen = () => setModalVisible(true);
 
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
     if (isModalVisible) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
@@ -23,8 +27,12 @@ const App = () => {
     }
   }, [isModalVisible]);
 
+  // カラーモード変更.
+  const ThemeColor = useContext(ThemeModeContext);
+  const clickPaletteToggle = () => ThemeColor.toggle();
+
   return (
-    <Box className="app">
+    <Box className={styles.index}>
       <Box
         component="main"
         sx={{
@@ -36,8 +44,25 @@ const App = () => {
           justifyContent: 'center',
         }}
       >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '0.5rem',
+            left: '0',
+          }}
+        >
+          <Button
+            onClick={clickPaletteToggle}
+            variant="text"
+            sx={{
+              color: palette.grey[600],
+            }}
+          >
+            {palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+          </Button>
+        </Box>
         <AboutContent>
-          <h1 className="site-title">el.kulo</h1>
+          <h1 className={styles['site-title']}>el.kulo</h1>
           <p>FRONT-END DEVELOPER & DESIGNER.</p>
           <Box
             sx={{
@@ -52,10 +77,10 @@ const App = () => {
               sx={{
                 paddingLeft: '3rem',
                 paddingRight: '3rem',
-                backgroundColor: lime[400],
+                backgroundColor: palette.success.main,
 
                 '&:hover': {
-                  backgroundColor: lime[600],
+                  backgroundColor: palette.success.dark,
                 },
               }}
             >
@@ -65,15 +90,15 @@ const App = () => {
             </Button>
           </Box>
           <Button
-            onClick={handleClickOpen}
+            onClick={clickModalOpen}
             variant="text"
             sx={{
               paddingLeft: '3rem',
               paddingRight: '3rem',
-              color: amber[200],
+              color: palette.warning.main,
 
               '&:hover': {
-                color: amber[200],
+                color: palette.warning.dark,
               },
             }}
           >
@@ -91,7 +116,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          <Box className="copyright" sx={{ marginTop: '0.5rem' }}>
+          <Box className={styles.copyright} sx={{ marginTop: '0.5rem' }}>
             &copy; Me | el.kulo
           </Box>
         </Box>
@@ -108,4 +133,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Index;

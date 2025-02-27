@@ -1,4 +1,4 @@
-# Me.
+# Me
 
 el.kulo という名で活動している A.Sudo です。
 
@@ -17,10 +17,10 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 ## スキル
 
-> **主要言語**  
+**主要言語**  
 > HTML, Sass(SCSS), TypeScript, JavaScript, PHP
 
-> **主要ライブラリ**  
+**主要ライブラリ**  
 > React, Gatsby, Vue(v3), Express, WordPress, Slim Framework, Laravel, 他
 
 ---
@@ -37,7 +37,7 @@ WordPress をベースにした制作を得意とし、企業向けにオリジ�
 
 - **Feeder**  
   <https://feeder.elkulo.me/>  
-  WordPress の更新状況を一元監視する Vue x Slim Framework の RSSリーダー
+  WordPress の更新状況を一元監視する Vue x Slim Framework の RSS リーダー
 
 - **API Server**  
   <https://api.elkulo.me/>  

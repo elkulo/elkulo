@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGFM from 'remark-gfm';
+import Box from '@mui/material/Box';
 import muiDialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,7 +12,7 @@ import $readme from '@docs/readme/README.md';
 
 const Dialog = Styled(muiDialog)`
   .MuiBackdrop-root {
-    background: rgba(0,0,0,0.9);
+    background: #000;
   }
   .MuiDialogContent-root {
     background: #0d1117;
@@ -92,11 +93,9 @@ const ProfileModal = ({ emits }: propType) => {
         <CloseButton aria-label="close" onClick={handleClose}>
           <CloseIcon />
         </CloseButton>
-        <ReactMarkdown
-          className="markdown-body"
-          remarkPlugins={[remarkGFM]}
-          children={getEntry}
-        />
+        <Box className="markdown-body">
+          <ReactMarkdown remarkPlugins={[remarkGFM]} children={getEntry} />
+        </Box>
       </DialogContent>
     </Dialog>
   );
