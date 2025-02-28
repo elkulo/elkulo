@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import ProfileModal from '../components/ProfileModal';
 import AboutContent from '../components/AboutContent';
 import { ThemeModeContext } from '../composables/useThemeMode';
-import 'github-markdown-css/github-markdown.css';
 import styles from './index.module.scss';
 
 const Index = () => {
@@ -95,10 +94,10 @@ const Index = () => {
             sx={{
               paddingLeft: '3rem',
               paddingRight: '3rem',
-              color: palette.warning.main,
+              color: palette.success.main,
 
               '&:hover': {
-                color: palette.warning.dark,
+                color: palette.success.dark,
               },
             }}
           >

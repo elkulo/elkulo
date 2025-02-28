@@ -1,4 +1,5 @@
 import 'normalize.css';
+import 'github-markdown-css/github-markdown.css';
 import './styles/global.scss';
 import { ThemeProvider } from '@mui/material/styles';
 import { useThemeMode, ThemeModeContext } from './composables/useThemeMode';

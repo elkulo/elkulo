@@ -12,10 +12,18 @@ import $readme from '@docs/readme/README.md';
 
 const Dialog = Styled(muiDialog)`
   .MuiBackdrop-root {
-    background: #000;
+    background: #ededed;
+
+    [data-theme="dark"] & {
+      background: #000;
+    }
   }
   .MuiDialogContent-root {
-    background: #0d1117;
+    background: #fff;
+
+    [data-theme="dark"] & {
+      background: #0d1117;
+    }
   }
 
   .MuiPaper-root.MuiDialog-paperScrollBody {

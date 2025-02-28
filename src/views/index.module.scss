@@ -2,6 +2,13 @@
 .index {
   min-height: 600px;
   height: 100%;
+
+  :root[data-theme="light"] & {
+    background: #fafafa;
+  }
+  :root[data-theme="dark"] & {
+    background: #0a0a0a;
+  }
 }
 
 .site-title,
