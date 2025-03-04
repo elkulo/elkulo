@@ -122,16 +122,26 @@ body,
   height: 100%;
 }
 
+html,
+body {
+  background: var(--bgColor-default, #121212);
+  color: var(--fgColor-default, #ffffff);
+}
+
 #root {
-  font-family: "Lato";
+  font-family: "Lato", "Noto Sans JP", sans-serif;
+
+  button {
+    font-family: "Lato", "Noto Sans JP", sans-serif;
+  }
 }
 
 .markdown-body {
   h1,
   h2,
   h3 {
-    font-family: "Noto Serif JP";
-    font-weight: 600;
+    font-family: "Lato", "Noto Sans JP", sans-serif;
+    font-weight: 400;
     color: var(--fgColor-success, #3fb950);
   }
 

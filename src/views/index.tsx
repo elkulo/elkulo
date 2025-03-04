@@ -77,6 +77,7 @@ const Index = () => {
                 paddingLeft: '3rem',
                 paddingRight: '3rem',
                 backgroundColor: palette.success.main,
+                fontFamily: `"Lato", "Noto Sans JP", sans-serif`,
 
                 '&:hover': {
                   backgroundColor: palette.success.dark,

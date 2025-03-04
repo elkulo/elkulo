@@ -49,6 +49,7 @@ const CloseButton = Styled(IconButton)`
   position: fixed;
   right: 0.5rem;
   top: 0.5rem;
+  padding: 0.25rem;
   color: #fff;
   background: ${blueGrey[900]};
   transition: all 200ms ease-in;
@@ -62,11 +63,7 @@ const CloseButton = Styled(IconButton)`
   }
 
   .MuiSvgIcon-root {
-    font-size: 1.25rem;
-
-    @media (min-width: 600px) {
-      font-size: 2.5rem;
-    }
+    font-size: 1.5rem;
   }
 `;
 
