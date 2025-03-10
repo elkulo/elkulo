@@ -85,7 +85,13 @@ const Index = () => {
                 },
               }}
             >
-              <span style={{ display: 'inline-block', paddingTop: '0.25em' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  paddingTop: '0.125em',
+                  letterSpacing: '-0.05em',
+                }}
+              >
                 ポートフォリオ
               </span>
             </Button>
