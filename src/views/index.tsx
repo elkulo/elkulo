@@ -54,6 +54,7 @@ const Index = () => {
             onClick={clickPaletteToggle}
             variant="text"
             sx={{
+              borderRadius: `0 4px 4px 0`,
               color: palette.grey[600],
             }}
           >
