@@ -5,8 +5,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ProfileModal from '../components/ProfileModal';
 import AboutContent from '../components/AboutContent';
+import BlueskyBubble from '../components/BlueskyBubble';
+import ProfileModal from '../components/ProfileModal';
 import { ThemeModeContext } from '../composables/useThemeMode';
 import styles from './index.module.scss';
 
@@ -61,57 +62,60 @@ const Index = () => {
             {palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
           </Button>
         </Box>
-        <AboutContent>
-          <h1 className={styles['site-title']}>el.kulo</h1>
-          <p>FRONT-END DEVELOPER & DESIGNER.</p>
-          <Box
-            sx={{
-              margin: '1.5rem 0 0.5rem',
-            }}
-          >
+        <Box sx={{ position: 'relative' }}>
+          <BlueskyBubble />
+          <AboutContent>
+            <h1 className={styles['site-title']}>el.kulo</h1>
+            <p>FRONT-END DEVELOPER & DESIGNER.</p>
+            <Box
+              sx={{
+                margin: '1.5rem 0 0.5rem',
+              }}
+            >
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<GitHubIcon />}
+                href="https://elkulo.github.io/"
+                sx={{
+                  paddingLeft: '3rem',
+                  paddingRight: '3rem',
+                  backgroundColor: palette.success.main,
+                  fontFamily: `"Lato", "Noto Sans JP", sans-serif`,
+
+                  '&:hover': {
+                    backgroundColor: palette.success.dark,
+                  },
+                }}
+              >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    paddingTop: '0.125em',
+                    letterSpacing: '-0.05em',
+                  }}
+                >
+                  ポートフォリオ
+                </span>
+              </Button>
+            </Box>
             <Button
-              variant="contained"
-              size="large"
-              startIcon={<GitHubIcon />}
-              href="https://elkulo.github.io/"
+              onClick={clickModalOpen}
+              variant="text"
               sx={{
                 paddingLeft: '3rem',
                 paddingRight: '3rem',
-                backgroundColor: palette.success.main,
-                fontFamily: `"Lato", "Noto Sans JP", sans-serif`,
+                color: palette.success.main,
 
                 '&:hover': {
-                  backgroundColor: palette.success.dark,
+                  color: palette.success.dark,
                 },
               }}
             >
-              <span
-                style={{
-                  display: 'inline-block',
-                  paddingTop: '0.125em',
-                  letterSpacing: '-0.05em',
-                }}
-              >
-                ポートフォリオ
-              </span>
+              私について
             </Button>
-          </Box>
-          <Button
-            onClick={clickModalOpen}
-            variant="text"
-            sx={{
-              paddingLeft: '3rem',
-              paddingRight: '3rem',
-              color: palette.success.main,
-
-              '&:hover': {
-                color: palette.success.dark,
-              },
-            }}
-          >
-            私について
-          </Button>
-        </AboutContent>
+          </AboutContent>
+        </Box>
         <Box
           component="footer"
           sx={{

@@ -8,6 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'public',
     minify: 'terser',
+    chunkSizeWarningLimit: 600,
   },
   plugins: [
     react(),

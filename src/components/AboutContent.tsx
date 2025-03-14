@@ -10,9 +10,10 @@ const AboutContent = ({ children }: { children: ReactNode }) => {
       component="article"
       sx={{
         boxSizing: 'border-box',
+        position: 'relative',
+        zIndex: '1',
         maxWidth: '480px',
         padding: '0.5rem',
-        margin: '0 0 5rem',
       }}
     >
       <Box
