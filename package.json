@@ -22,10 +22,10 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@eslint/js": "^9.22.0",
-    "@mui/icons-material": "^6.4.7",
-    "@mui/material": "^6.4.7",
+    "@mui/icons-material": "^6.4.8",
+    "@mui/material": "^6.4.8",
     "@types/md5": "^2.3.5",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.0.11",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-legacy": "^6.0.2",
     "@vitejs/plugin-react": "^4.3.4",
@@ -38,10 +38,10 @@
     "json-server": "^1.0.0-beta.3",
     "md5": "^2.3.0",
     "normalize.css": "^8.0.1",
-    "sass": "^1.85.1",
+    "sass": "^1.86.0",
     "terser": "^5.39.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.26.1",
-    "vite": "^6.2.1"
+    "vite": "^6.2.2"
   }
 }
