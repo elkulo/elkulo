@@ -18,9 +18,9 @@ type postsType = Array<{
 }>;
 
 const API_URL = {
-  src: 'http://localhost:3000/bsky',
-  key: '',
-  salt: '',
+  src: import.meta.env.VITE_API_URL || '',
+  key: import.meta.env.VITE_API_KEY || '',
+  salt: import.meta.env.VITE_API_SALT || '',
 };
 
 const bubbleImage = {
@@ -28,11 +28,34 @@ const bubbleImage = {
   light: '/assets/images/bubbles/speech-bubble-light@2x.png',
 };
 
+/**
+ * mbSubstrFormat
+ *
+ * @param  {string} text   テキスト.
+ * @param  {number} len    文字数.
+ * @param  {string} period 末尾の省略文字.
+ * @return {string}
+ */
+const mbSubstrFormat = (text: string, len: number, period: string): string => {
+  const processedText = text;
+  let txtCount = 0;
+  let sliceText = '';
+  for (let i = 0; i < processedText.length; i++) {
+    const n = encodeURI(processedText.charAt(i));
+    txtCount = n.length < 4 ? txtCount + 1 : txtCount + 2;
+    if (txtCount > len) {
+      return sliceText + period;
+    }
+    sliceText += processedText.charAt(i);
+  }
+  return decodeURI(processedText);
+};
+
 const BlueskyBubble = () => {
   const { palette } = useTheme();
   const [getPosts, setPosts] = useState<postsType>([]);
   const [getActivePost, setActivePost] = useState(0);
-  const [getFailed, setFailed] = useState('Bluesky API connection...');
+  const [getFailed, setFailed] = useState('connection...');
 
   // APIから取得.
   useEffect(() => {
@@ -121,9 +144,9 @@ const BlueskyBubble = () => {
                 position: 'absolute',
                 zIndex: getActivePost === i ? 99 : i + 1,
                 left: '1.25rem',
-                top: '2.125rem',
+                top: '2.25rem',
                 width: 'calc(100% - 2.5rem)',
-                height: '3.5rem',
+                height: '3.25rem',
                 overflow: 'hidden',
                 borderRadius: '5px',
                 background: palette.mode === 'dark' ? '#000' : '#fff',
@@ -137,17 +160,18 @@ const BlueskyBubble = () => {
                     display: 'block',
                     boxSizing: 'border-box',
                     height: '2.5rem',
-                    lineHeight: '1.4',
+                    lineHeight: '1.3',
                     fontSize: '0.875rem',
                     fontWeight: 500,
                     overflow: 'hidden',
                   }}
                 >
-                  {post.context}
+                  {mbSubstrFormat(post.context, 72, '...')}
                 </Box>
                 <Box
                   sx={{
                     textAlign: 'right',
+                    lineHeight: '1.1',
                     fontSize: '0.6375rem',
                     opacity: '0.66',
                   }}
