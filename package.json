@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "serve": "json-server --watch __serve__/db.json",
+    "serve:api": "json-server --watch __serve__/db.json",
     "lint": "eslint .",
+    "format": "eslint . --fix",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
