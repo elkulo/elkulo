@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import avatarImg from '@/assets/images/avatar.png';
 
 const AboutContent = ({ children }: { children: ReactNode }) => {
   const { palette } = useTheme();
@@ -42,7 +43,7 @@ const AboutContent = ({ children }: { children: ReactNode }) => {
           }}
         >
           <img
-            src="/assets/images/avatar.png"
+            src={avatarImg}
             alt="el.kulo"
             width="100%"
             height="100%"

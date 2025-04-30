@@ -65,7 +65,7 @@ const Index = () => {
         <Box sx={{ position: 'relative' }}>
           <BlueskyBubble />
           <AboutContent>
-            <h1 className={styles['site-title']}>el.kulo</h1>
+            <h1 className={styles.siteTitle}>el.kulo</h1>
             <p>FRONT-END DEVELOPER & DESIGNER.</p>
             <Box
               sx={{

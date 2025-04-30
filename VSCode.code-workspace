@@ -5,8 +5,56 @@
     }
   ],
   "settings": {
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2, // タブサイズ.
+    "editor.insertSpaces": false, // Tabキーでspace.
+    "prettier.singleQuote": false, // シングルクオート.
+    "prettier.useTabs": false, // タブでのインデント.
+    "prettier.printWidth": 120, // 折り返し文字数.
+    "intelephense.completion.maxItems": 120, // PHPの折り返し文字数.
+    "intelephense.format.braces": "k&r", // PHPの改行ルール.
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode", // フォーマッタ.
+      "prettier.useTabs": true,
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "prettier.useTabs": true,
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "prettier.useTabs": true,
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.tabSize": 4,
+      "prettier.singleQuote": true,
+      "prettier.useTabs": true,
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.tabSize": 4,
+      "prettier.singleQuote": true,
+      "prettier.useTabs": true,
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.tabSize": 4,
+      "prettier.singleQuote": true,
+      "prettier.useTabs": true,
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.tabSize": 4,
+      "prettier.singleQuote": true,
+      "prettier.useTabs": true,
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.insertSpaces": true,
+    },
+    "[php]": {
+      "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    },
     "path-autocomplete.pathMappings": {
       "@": "${folder}/src", // srcのエイリアス.
     }

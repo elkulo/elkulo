@@ -2,8 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { generateApiKey } from '../functionals/generateApiKey';
+import { generateApiKey } from '../functional/generateApiKey';
 import axios, { isAxiosError } from 'axios';
+import bubbleDarkImg from '@/assets/images/bubbles/speech-bubble-dark@2x.png';
+import bubbleLightImg from '@/assets/images/bubbles/speech-bubble-light@2x.png';
 
 type postsType = Array<{
   id: number;
@@ -21,11 +23,6 @@ const API_URL = {
   src: import.meta.env.VITE_API_URL || '',
   key: import.meta.env.VITE_API_KEY || '',
   salt: import.meta.env.VITE_API_SALT || '',
-};
-
-const bubbleImage = {
-  dark: '/assets/images/bubbles/speech-bubble-dark@2x.png',
-  light: '/assets/images/bubbles/speech-bubble-light@2x.png',
 };
 
 /**
@@ -106,8 +103,8 @@ const BlueskyBubble = () => {
         height: 'calc(320px / 2)',
         background:
           palette.mode === 'dark'
-            ? `url(${bubbleImage.dark})`
-            : `url(${bubbleImage.light})`,
+            ? `url(${bubbleDarkImg})`
+            : `url(${bubbleLightImg})`,
         backgroundSize: 'cover',
       }}
     >
