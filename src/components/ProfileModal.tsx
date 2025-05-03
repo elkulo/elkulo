@@ -77,33 +77,33 @@ type propType = {
 };
 
 const ProfileModal = ({ emits }: propType) => {
-  const [getEntry, setEntry] = useState('Now Loading...');
-  const { modalEmit } = emits;
+	const [getEntry, setEntry] = useState('Now Loading...');
+	const { modalEmit } = emits;
 
-  const handleClose = () => modalEmit.set(false);
+	const handleClose = () => modalEmit.set(false);
 
-  useEffect(() => setEntry($readme), [modalEmit.get]);
+	useEffect(() => setEntry($readme), [modalEmit.get]);
 
-  return (
-    <Dialog
-      fullWidth={true}
-      maxWidth={'md'}
-      open={modalEmit.get}
-      onClose={handleClose}
-      scroll={'body'}
-      aria-labelledby="scroll-dialog-title"
-      aria-describedby="scroll-dialog-description"
-    >
-      <DialogContent dividers={false}>
-        <CloseButton aria-label="close" onClick={handleClose}>
-          <CloseIcon />
-        </CloseButton>
-        <Box className="markdown-body">
-          <ReactMarkdown remarkPlugins={[remarkGFM]} children={getEntry} />
-        </Box>
-      </DialogContent>
-    </Dialog>
-  );
+	return (
+		<Dialog
+			fullWidth={true}
+			maxWidth={'md'}
+			open={modalEmit.get}
+			onClose={handleClose}
+			scroll={'body'}
+			aria-labelledby="scroll-dialog-title"
+			aria-describedby="scroll-dialog-description"
+		>
+			<DialogContent dividers={false}>
+				<CloseButton aria-label="close" onClick={handleClose}>
+					<CloseIcon />
+				</CloseButton>
+				<Box className="markdown-body">
+					<ReactMarkdown remarkPlugins={[remarkGFM]} children={getEntry} />
+				</Box>
+			</DialogContent>
+		</Dialog>
+	);
 };
 
 export default ProfileModal;

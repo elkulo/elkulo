@@ -9,19 +9,20 @@ export default defineConfig(() => {
 	const __dirname = dirname(fileURLToPath(import.meta.url)); // プロジェクトルートのパス.
 
 	return {
-		publicDir: 'static', // public -> static
+		base: './', // index.html に相対パスで出力.
+		root: 'static', // static/index.html
+		envDir: '../', // rootから見て環境変数の場所.
+		publicDir: './', // rootと同じディレクトリへ public -> static
 		build: {
-			outDir: 'public', // dist -> public
+			emptyOutDir: false, // rootの外を参照.
+			outDir: '../public', // rootから見て出力先 dist -> public
 			minify: 'terser',
-			chunkSizeWarningLimit: 600,
+			chunkSizeWarningLimit: 1000,
 			rollupOptions: {
-				//input: {
-				//  index: resolve(__dirname, '/static/index.html'),
-				//},
 				output: {
 					// ビルドファイル.
-					entryFileNames: '[name].min.js',
-					chunkFileNames: '_output/chunks/[name].[hash].js',
+					entryFileNames: '_output/js/[name].min.js',
+					chunkFileNames: '_output/js/chunks/[name].[hash].js',
 					assetFileNames: (assetInfo) => {
 						if (assetInfo.names.some((x) => /\.(gif|png|jpe?g|webp|svg)$/i.test(x))) {
 							return '_output/images/[name].[hash].[ext]';
@@ -30,9 +31,9 @@ export default defineConfig(() => {
 							return '_output/fonts/[name].[hash].[ext]';
 						}
 						if (assetInfo.names.some((x) => /\.(css)$/i.test(x))) {
-							return '[name].min.[ext]';
+							return '_output/css/[name].min.[ext]';
 						}
-						return '[name].[ext]';
+						return '_output/[ext]/[name].[ext]';
 					},
 					manualChunks: {
 						// 分割ファイル.
@@ -57,7 +58,7 @@ export default defineConfig(() => {
 			legacy({
 				targets: ['defaults', 'not IE 11'],
 				modernPolyfills: true,
-				renderLegacyChunks: true,
+				renderLegacyChunks: false,
 			}),
 		],
 		css: {
