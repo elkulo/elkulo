@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGFM from 'remark-gfm';
 import Box from '@mui/material/Box';
@@ -77,12 +76,11 @@ type propType = {
 };
 
 const ProfileModal = ({ emits }: propType) => {
-	const [getEntry, setEntry] = useState('Now Loading...');
 	const { modalEmit } = emits;
 
 	const handleClose = () => modalEmit.set(false);
 
-	useEffect(() => setEntry($readme), [modalEmit.get]);
+	const entry = $readme || 'Now Loading...';
 
 	return (
 		<Dialog
@@ -99,7 +97,7 @@ const ProfileModal = ({ emits }: propType) => {
 					<CloseIcon />
 				</CloseButton>
 				<Box className="markdown-body">
-					<ReactMarkdown remarkPlugins={[remarkGFM]} children={getEntry} />
+					<ReactMarkdown remarkPlugins={[remarkGFM]} children={entry} />
 				</Box>
 			</DialogContent>
 		</Dialog>
