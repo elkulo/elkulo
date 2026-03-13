@@ -5,19 +5,26 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // https://vite.dev/config/
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
 	const __dirname = dirname(fileURLToPath(import.meta.url)); // プロジェクトルートのパス.
+	const isDev = mode === 'development';
 
 	return {
 		base: './', // index.html に相対パスで出力.
-		root: 'static', // static/index.html
-		envDir: '../', // rootから見て環境変数の場所.
-		publicDir: './', // rootと同じディレクトリへ public -> static
+		//root: 'static', // static/index.html
+		//envDir: '../', // rootから見て環境変数の場所.
+		publicDir: 'static', // rootと同じディレクトリへ public -> static
 		build: {
 			emptyOutDir: false, // rootの外を参照.
-			outDir: '../public', // rootから見て出力先 dist -> public
-			minify: 'terser',
-			chunkSizeWarningLimit: 1000,
+			outDir: 'public', // rootから見て出力先 dist -> public
+			minify: isDev ? 'esbuild' : 'terser',
+			...(isDev ? {} : {
+				terserOptions: {
+					compress: { drop_console: true },
+				},
+			}),
+			sourcemap: isDev ? 'inline' : false,
+			chunkSizeWarningLimit: isDev ? 9999 : 1000,
 			rollupOptions: {
 				output: {
 					// ビルドファイル.
@@ -55,7 +62,7 @@ export default defineConfig(() => {
 					}
 				},
 			},
-			legacy({
+			!isDev && legacy({
 				targets: ['defaults', 'not IE 11'],
 				modernPolyfills: true,
 				renderLegacyChunks: false,
