@@ -7,12 +7,12 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf node_modules && npm install",
-    "serve:api": "json-server --watch __serve__/db.json",
-    "develop": "vite",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint 'src/'",
     "format": "eslint --fix 'src/'",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve:api": "json-server --watch __serve__/db.json"
   },
   "dependencies": {
     "@docs/readme": "file:docs",

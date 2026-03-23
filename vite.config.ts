@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
 		build: {
 			emptyOutDir: false, // rootの外を参照.
 			outDir: 'public', // rootから見て出力先 dist -> public
-			minify: isDev ? 'esbuild' : 'terser',
+			minify: isDev ? false : 'terser',
 			...(isDev ? {} : {
 				terserOptions: {
 					compress: { drop_console: true },
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
 						if (assetInfo.names.some((x) => /\.(gif|png|jpe?g|webp|svg)$/i.test(x))) {
 							return '_output/images/[name].[hash].[ext]';
 						}
-						if (assetInfo.names.some((x) => /\.(eot|wof|woff|woff2|ttf)$/i.test(x))) {
+						if (assetInfo.names.some((x) => /\.(eot|woff|woff2|ttf)$/i.test(x))) {
 							return '_output/fonts/[name].[hash].[ext]';
 						}
 						if (assetInfo.names.some((x) => /\.(css)$/i.test(x))) {
@@ -47,6 +47,7 @@ export default defineConfig(({ mode }) => {
 						md5: ['md5'],
 						axios: ['axios'],
 						react: ['react', 'react-dom', 'react-markdown', 'remark-gfm'],
+						mui: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
 					},
 				},
 			},
