@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
 
 	return {
 		base: './', // index.html に相対パスで出力.
-		//root: 'static', // static/index.html
+		//root: 'static', // static/index.html (srcを跨げないためNG)
 		//envDir: '../', // rootから見て環境変数の場所.
 		publicDir: 'static', // rootと同じディレクトリへ public -> static
 		build: {
