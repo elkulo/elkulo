@@ -46,8 +46,8 @@ export default defineConfig(({ mode }) => {
 						// 分割ファイル.
 						md5: ['md5'],
 						axios: ['axios'],
-						react: ['react', 'react-dom', 'react-markdown', 'remark-gfm'],
-						mui: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
+						react: ['react', 'react-dom', 'react-markdown', 'remark-gfm', '@emotion/react', '@emotion/styled'],
+						mui: ['@mui/material', '@mui/icons-material'],
 					},
 				},
 			},

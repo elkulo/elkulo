@@ -3,7 +3,7 @@
   "description": "Githubプロフィール",
   "license": "UNLICENSED",
   "private": true,
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf node_modules && npm install",
@@ -41,11 +41,11 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "github-markdown-css": "^5.9.0",
     "globals": "^17.4.0",
-    "json-server": "^1.0.0-beta.13",
+    "json-server": "^1.0.0-beta.14",
     "sass-embedded": "^1.98.0",
-    "terser": "^5.46.0",
+    "terser": "^5.46.1",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.57.0",
+    "typescript-eslint": "^8.57.1",
     "vite": "^7.3.1"
   }
 }
