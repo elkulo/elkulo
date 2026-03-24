@@ -41,11 +41,11 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "github-markdown-css": "^5.9.0",
     "globals": "^17.4.0",
-    "json-server": "^1.0.0-beta.14",
+    "json-server": "^1.0.0-beta.15",
     "sass-embedded": "^1.98.0",
     "terser": "^5.46.1",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "^8.57.2",
     "vite": "^7.3.1"
   }
 }
