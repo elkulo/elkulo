@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { generateApiKey } from '../functional/generateApiKey';
+import { generateApiKey } from '../functionals/generateApiKey';
 import axios, { isAxiosError } from 'axios';
 import bubbleDarkImg from '@/assets/images/bubbles/speech-bubble-dark@2x.png';
 import bubbleLightImg from '@/assets/images/bubbles/speech-bubble-light@2x.png';
